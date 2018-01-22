@@ -1,0 +1,88 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion rootProject.ext.target_version
+    buildToolsVersion rootProject.ext.build_version
+
+    defaultConfig {
+        applicationId "com.xiong.appbase"
+        minSdkVersion rootProject.ext.min_version
+        targetSdkVersion rootProject.ext.target_version
+        versionCode rootProject.ext.code_version
+        versionName rootProject.ext.code_version_name
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            buildConfigField "boolean","mbDebugMode","true"
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean","mbDebugMode","false"
+        }
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+    productFlavors {
+        iimedia {
+//            applicationId "cn.iimedia.yq"
+//            manifestPlaceholders = [icon: "@mipmap/icon_logo"]
+//            resValue "string", "gradle_name", "iimedia"
+//            buildConfigField "String", "PRODUCT_NAME", '"iimedia"'
+        }
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def file = output.outputFile
+            if (file != null && file.name.endsWith(".apk")) {
+                output.outputFile = new File(output.outputFile.parent,
+                        "yq_${productFlavors[0].name}_${buildType.name}-${releaseTime()}.apk")
+            }
+        }
+    }
+}
+
+def releaseTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile "com.android.support:appcompat-v7:$support_version"
+    compile "com.android.support:recyclerview-v7:$support_version"
+    compile "com.android.support:cardview-v7:$support_version"
+    compile "com.android.support:design:$support_version"
+
+    compile "com.squareup.retrofit2:retrofit:$retrofit_version"
+    compile "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+
+    compile 'com.blankj:utilcode:1.9.10'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'com.qmuiteam:qmui:1.0.4'
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.afollestad.material-dialogs:core:0.8.5.3'
+    compile 'com.github.rey5137:material:1.2.4'
+    compile 'me.yokeyword:fragmentation:1.1.10'
+    compile 'me.yokeyword:fragmentation-swipeback:1.1.10'
+}
+repositories {
+    mavenCentral()
+}
