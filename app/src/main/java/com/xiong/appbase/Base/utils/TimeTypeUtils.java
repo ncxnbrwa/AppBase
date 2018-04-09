@@ -1,5 +1,6 @@
 package com.xiong.appbase.Base.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -146,5 +147,12 @@ public class TimeTypeUtils {
         calendar.add(Calendar.HOUR_OF_DAY, -(23 - index));
         calendar.set(Calendar.MINUTE, 0);
         return getTimeFormat(calendar.getTimeInMillis());
+    }
+	
+	//生成指定时间的时间戳
+    public static long releaseTime2Stamp(String releaseTime) throws ParseException {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = df.parse(releaseTime);
+        return date.getTime() / 1000;
     }
 }

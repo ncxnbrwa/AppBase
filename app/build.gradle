@@ -12,6 +12,8 @@ android {
         targetSdkVersion rootProject.ext.target_version
         versionCode rootProject.ext.code_version
         versionName rootProject.ext.code_version_name
+        //用于统一维度,避免AS3.0的编译错误
+        flavorDimensions "versionCode"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             // 设置支持的SO库架构
@@ -36,18 +38,18 @@ android {
     }
     productFlavors {
         iimedia {
-//            applicationId "cn.iimedia.yq"
-//            manifestPlaceholders = [icon: "@mipmap/icon_logo"]
-//            resValue "string", "gradle_name", "iimedia"
-//            buildConfigField "String", "PRODUCT_NAME", '"iimedia"'
+            applicationId "cn.iimedia.yq"
+            manifestPlaceholders = [icon: "@mipmap/icon_logo"]
+            resValue "string", "gradle_name", "iimedia"
+            buildConfigField "String", "PRODUCT_NAME", '"iimedia"'
         }
     }
     android.applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def file = output.outputFile
             if (file != null && file.name.endsWith(".apk")) {
-                output.outputFile = new File(output.outputFile.parent,
-                        "yq_${productFlavors[0].name}_${buildType.name}-${releaseTime()}.apk")
+//                output.outputFile = new File(output.outputFile.parent,
+//                        "${applicationId}_${productFlavors[0].name}_${releaseTime()}_v${code_version_name}.apk")
             }
         }
     }
@@ -74,14 +76,13 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
 
     compile 'com.blankj:utilcode:1.9.10'
-    compile 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile "com.jakewharton:butterknife:$butterknife_version"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife_version"
     compile 'com.qmuiteam:qmui:1.0.4'
-    compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.afollestad.material-dialogs:core:0.8.5.3'
     compile 'com.github.rey5137:material:1.2.4'
-    compile 'me.yokeyword:fragmentation:1.1.10'
-    compile 'me.yokeyword:fragmentation-swipeback:1.1.10'
+    compile "me.yokeyword:fragmentation:$fragmentation_version"
+    compile "me.yokeyword:fragmentation-swipeback:$fragmentation_version"
 }
 repositories {
     mavenCentral()
