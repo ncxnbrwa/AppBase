@@ -1,8 +1,7 @@
 package com.xiong.appbase.http;
 
-import com.xiong.appbase.Base.BaseApplication;
-import com.xiong.appbase.Base.utils.DLog;
-import com.xiong.appbase.Base.utils.ELS;
+import com.xiong.appbase.utils.DLog;
+import com.xiong.appbase.utils.ELS;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -20,7 +19,7 @@ public class CookiesAddInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request.Builder builder = chain.request().newBuilder();
-        HashSet<String> cookieSet = (HashSet<String>) ELS.getInstance(BaseApplication.getAppContext()).getCookieSet();
+        HashSet<String> cookieSet = (HashSet<String>) ELS.getInstance().getCookieSet();
         for (String cookie : cookieSet) {
             builder.addHeader("Cookie", cookie);
             DLog.w("OkHttp", "添加Cookie:" + cookie);

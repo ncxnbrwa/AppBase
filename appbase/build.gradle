@@ -1,56 +1,40 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion rootProject.ext.target_version
-    buildToolsVersion rootProject.ext.build_version
+    def ext = rootProject.extensions.getByName("ext")
+    compileSdkVersion ext.target_version
+    buildToolsVersion ext.build_version
 
     defaultConfig {
-        applicationId "com.xiong.appbase"
-        minSdkVersion rootProject.ext.min_version
-        targetSdkVersion rootProject.ext.target_version
-        versionCode rootProject.ext.code_version
-        versionName rootProject.ext.code_version_name
-        //用于统一维度,避免AS3.0的编译错误
-        flavorDimensions "versionCode"
+        minSdkVersion ext.min_version
+        targetSdkVersion ext.target_version
+        versionCode ext.code_version
+        versionName ext.code_version_name
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        ndk {
-            // 设置支持的SO库架构
-            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
-        }
     }
     buildTypes {
         debug {
             minifyEnabled false
-            buildConfigField "boolean","mbDebugMode","true"
+            buildConfigField "boolean", "mbDebugMode", "true"
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "boolean","mbDebugMode","false"
+            buildConfigField "boolean", "mbDebugMode", "false"
+        }
+    }
+    //用于统一维度,避免AS3.0的编译错误
+    flavorDimensions "tier"
+    productFlavors {
+        iimedia {
+            dimension 'tier'
         }
     }
     repositories {
         flatDir {
             dirs 'libs'
-        }
-    }
-    productFlavors {
-        iimedia {
-            applicationId "cn.iimedia.yq"
-            manifestPlaceholders = [icon: "@mipmap/icon_logo"]
-            resValue "string", "gradle_name", "iimedia"
-            buildConfigField "String", "PRODUCT_NAME", '"iimedia"'
-        }
-    }
-    android.applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            def file = output.outputFile
-            if (file != null && file.name.endsWith(".apk")) {
-//                output.outputFile = new File(output.outputFile.parent,
-//                        "${applicationId}_${productFlavors[0].name}_${releaseTime()}_v${code_version_name}.apk")
-            }
         }
     }
 }
@@ -62,27 +46,29 @@ def releaseTime() {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile "com.android.support:appcompat-v7:$support_version"
-    compile "com.android.support:recyclerview-v7:$support_version"
-    compile "com.android.support:cardview-v7:$support_version"
-    compile "com.android.support:design:$support_version"
-
-    compile "com.squareup.retrofit2:retrofit:$retrofit_version"
-    compile "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
-
-    compile 'com.blankj:utilcode:1.9.10'
-    compile "com.jakewharton:butterknife:$butterknife_version"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife_version"
-    compile 'com.qmuiteam:qmui:1.0.4'
-    compile 'com.afollestad.material-dialogs:core:0.8.5.3'
-    compile 'com.github.rey5137:material:1.2.4'
-    compile "me.yokeyword:fragmentation:$fragmentation_version"
-    compile "me.yokeyword:fragmentation-swipeback:$fragmentation_version"
+    compile androidDependencies.appcompat_v7
+    compile androidDependencies.recyclerView
+    compile androidDependencies.cardview_v7
+    compile androidDependencies.design
+    compile viewDependencies.retrofit2
+    compile viewDependencies.retrofit2_gson
+    compile viewDependencies.okhttp3_logging
+    compile viewDependencies.butterknife
+    annotationProcessor viewDependencies.butterknife_compiler
+    compile viewDependencies.util_code
+    compile viewDependencies.qmui
+    compile viewDependencies.material_dialogs
+    compile viewDependencies.rey5137_material
+    compile viewDependencies.fragmentation
+    compile viewDependencies.fragmentation_swipe
+    compile viewDependencies.gif
+    compile viewDependencies.glide
+    annotationProcessor viewDependencies.glideAnnotationProcessor
+    compile viewDependencies.glideTransformations
+    compile viewDependencies.smart_refresh
+    compile 'com.github.frendyxzc:TabLayout:0.0.5'
+    compile 'com.github.hackware1993:MagicIndicator:1.5.0'
+    compile "org.jetbrains.anko:anko-common:$anko_version"
 }
 repositories {
     mavenCentral()

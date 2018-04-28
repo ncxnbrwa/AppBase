@@ -1,6 +1,8 @@
-package com.xiong.appbase.Base.utils;
+package com.xiong.appbase.utils;
 
 import android.util.Log;
+
+import com.xiong.appbase.BuildConfig;
 
 /**
  * 日志信息输出�?
@@ -9,8 +11,8 @@ import android.util.Log;
  *
  */
 public final class DLog {
-	private static boolean mbDebugMode = true;
-//	private static boolean mbDebugMode = BuildConfig.mbDebugMode;
+//	private static boolean mbDebugMode = true;
+	private static boolean mbDebugMode = BuildConfig.mbDebugMode;
 	private static boolean mbLogDInRelease = false;
 	private static boolean mbLogVInRelease = false;
 	private static boolean mbLogIInRelease = true;

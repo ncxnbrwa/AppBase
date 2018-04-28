@@ -1,0 +1,53 @@
+ext {
+    min_version = 16
+    target_version = 27
+    build_version = '27.0.2'
+    code_version = 1
+    code_version_name = '1.0.0'
+
+    anko_version = '0.10.0'
+    support_version = '26.1.0'
+
+    retrofit_version = '2.3.0'
+    okhttp3_logging_version = '3.8.0'
+    bugly_version = '2.6.6'
+    bugly_NDK_version = '3.3.1'
+    butterknife_version = '8.8.1'
+    fragmentation_version = '1.1.10'
+    glide_version = '4.6.1'
+    glideAnnotationProcessor = '4.6.1'
+    glideTransformations = '3.1.1'
+    util_code_version = '1.9.10'
+    material_dialogs_version = '0.8.5.3'
+    qmui_version = '1.0.4'
+    rey5137_material_version = '1.2.4'
+    gif_version = '1.2.3'
+    smart_refresh_version='1.0.5.1'
+
+    androidDependencies = [
+            recyclerView: "com.android.support:recyclerview-v7:${support_version}",
+            appcompat_v7: "com.android.support:appcompat-v7:${support_version}",
+            cardview_v7 : "com.android.support:cardview-v7:${support_version}",
+            support_v4  : "com.android.support:support-v4:${support_version}",
+            design      : "com.android.support:design:${support_version}"
+    ]
+
+    viewDependencies = [
+            retrofit2           : "com.squareup.retrofit2:retrofit:$retrofit_version",
+            retrofit2_gson      : "com.squareup.retrofit2:converter-gson:$retrofit_version",
+            okhttp3_logging     : "com.squareup.okhttp3:logging-interceptor:$okhttp3_logging_version",
+            butterknife         : "com.jakewharton:butterknife:$butterknife_version",
+            butterknife_compiler: "com.jakewharton:butterknife-compiler:$butterknife_version",
+            util_code           : "com.blankj:utilcode:$util_code_version",
+            material_dialogs    : "com.afollestad.material-dialogs:core:$material_dialogs_version",
+            qmui                : "com.qmuiteam:qmui:$qmui_version",
+            rey5137_material    : "com.github.rey5137:material:$rey5137_material_version",
+            fragmentation       : "me.yokeyword:fragmentation:$fragmentation_version",
+            fragmentation_swipe : "me.yokeyword:fragmentation-swipeback:$fragmentation_version",
+            gif                 : "pl.droidsonroids.gif:android-gif-drawable:$gif_version",
+            glide                   : "com.github.bumptech.glide:glide:${glide_version}",
+            glideAnnotationProcessor: "com.github.bumptech.glide:compiler:${glideAnnotationProcessor}",
+            glideTransformations    : "jp.wasabeef:glide-transformations:${glideTransformations}",
+            smart_refresh:"com.scwang.smartrefresh:SmartRefreshLayout:${smart_refresh_version}"
+    ]
+}

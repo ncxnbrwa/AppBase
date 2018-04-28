@@ -1,4 +1,4 @@
-package com.xiong.appbase.Base.utils;
+package com.xiong.appbase.utils;
 
 import android.content.Context;
 import android.content.DialogInterface;

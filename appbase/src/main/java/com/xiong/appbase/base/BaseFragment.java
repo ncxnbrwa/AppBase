@@ -1,6 +1,8 @@
-package com.xiong.appbase.Base;
+package com.xiong.appbase.base;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.xiong.appbase.Base.utils.DLog;
+import com.xiong.appbase.utils.DLog;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -21,11 +23,18 @@ public abstract class BaseFragment extends Fragment {
     private boolean hasFetchData; // 标识已经触发过懒加载数据
     Unbinder unbinder;
     static Toast mToast;
+    public Activity mActivity;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mElfApp = BaseApplication.getInstance();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mActivity = (Activity) context;
     }
 
     @Override
@@ -50,7 +59,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        init();
     }
 
     protected abstract int getLayoutId();
@@ -124,6 +132,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         DLog.d(getClass().getSimpleName(), "onDestroy");
+        mActivity = null;
         super.onDestroy();
     }
 

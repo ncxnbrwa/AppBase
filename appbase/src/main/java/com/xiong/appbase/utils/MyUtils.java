@@ -1,13 +1,25 @@
-package com.xiong.appbase.Base.utils;
+package com.xiong.appbase.utils;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import com.xiong.appbase.R;
+import com.xiong.appbase.base.BaseActivity;
+import com.xiong.appbase.base.Config;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -37,15 +49,15 @@ public class MyUtils {
     }
 
     //跳转微信
-//    public static void intentToWechat(BaseActivity activity) {
-//        Intent intent = new Intent();
-//        intent.setAction(Intent.ACTION_MAIN);
-//        intent.setComponent(new ComponentName(Config.WEXIN_PACKAGE,
-//                Config.WEXIN_HOME_CLASS));
-//        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        activity.startActivityForResult(intent, 0);
-//    }
+    public static void intentToWechat(BaseActivity activity) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_MAIN);
+        intent.setComponent(new ComponentName(Config.WEXIN_PACKAGE,
+                Config.WEXIN_HOME_CLASS));
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivityForResult(intent, 0);
+    }
 
 
     //键盘是否显示
@@ -120,4 +132,29 @@ public class MyUtils {
         return key;
     }
 
+    //流式布局item
+    public static TextView createRelatedItem(Context ctx, String text) {
+        TextView relatedItem = new TextView(ctx);
+        relatedItem.setBackgroundResource(R.drawable.float_item_bg);
+        relatedItem.setTextSize(13f);
+        relatedItem.setText(text);
+        relatedItem.setTextColor(ContextCompat.getColor(ctx, R.color.text_lable_jb));
+        relatedItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+        return relatedItem;
+    }
+
+    //获取imei标识
+    public static String getImei(Activity activity) {
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity,
+                    new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+        }
+        TelephonyManager tm = (TelephonyManager) activity.getSystemService(Context.TELEPHONY_SERVICE);
+        return tm.getDeviceId();
+    }
 }

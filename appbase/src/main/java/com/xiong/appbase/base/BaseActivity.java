@@ -1,6 +1,7 @@
-package com.xiong.appbase.Base;
+package com.xiong.appbase.base;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,8 +12,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.xiong.appbase.Base.utils.DLog;
 import com.xiong.appbase.R;
+import com.xiong.appbase.utils.DLog;
 import com.xiong.appbase.custom.Indicator;
 
 import butterknife.ButterKnife;
@@ -22,6 +23,7 @@ import me.yokeyword.fragmentation_swipeback.SwipeBackActivity;
 
 //基础activity
 public abstract class BaseActivity extends SwipeBackActivity {
+    public Activity mActivity = this;
     public BaseApplication mElfApp = null;
     Unbinder unbinder;
     static Toast mToast;
@@ -42,7 +44,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
 
 //        if (loadingDialog == null)
 //            loadingDialog = ComponentsUtils.getLoadingDialog(this, "加载中...");
-        setInitialConfiguration();
+//        setInitialConfiguration();
     }
 
     protected abstract int getLayoutId();
@@ -103,6 +105,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
     @Override
     protected void onDestroy() {
         DLog.d(getClass().getSimpleName(), "onDestroy");
+        mActivity = null;
         //activity销毁时弹出栈
         mElfApp.popActivity(this);
         DLog.d(".mActivityStack.size", "" + mElfApp.mActivityStack.size());

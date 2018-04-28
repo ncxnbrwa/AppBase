@@ -1,9 +1,11 @@
-package com.xiong.appbase.Base.utils;
+package com.xiong.appbase.utils;
 
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+
+import com.xiong.appbase.base.BaseApplication;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,25 +23,16 @@ public class ELS {
     public static final String SESSION_KEY = "session_key";
     public static final String COOKIES = "cookies";
     public static final String COOKIES_SET = "cookies_set";
-    public static final String HAS_INIT_DATABASE = "init_database";
-    public static final String PASSWORD_INVALID_TIME = "psw_invalid_time";
+    public static final String IMEI = "imei";
 
     //清除所用户相关的信息
     public void clearUserInfo() {
-        mEditor.putStringSet(COOKIES_SET, null);
-        mEditor.putString(COOKIES, null);
-        mEditor.putBoolean(HAS_INIT_DATABASE, false);
-        mEditor.putLong(PASSWORD_INVALID_TIME, 0);
         mEditor.putString(PASSWORD, null);
         mEditor.apply();
     }
 
     //清除用户有关数据除了密码
     public void clearUserInfoExceptPsw() {
-        mEditor.putStringSet(COOKIES_SET, null);
-        mEditor.putString(COOKIES, null);
-        mEditor.putBoolean(HAS_INIT_DATABASE, false);
-        mEditor.putLong(PASSWORD_INVALID_TIME, 0);
         mEditor.apply();
     }
 
@@ -102,9 +95,9 @@ public class ELS {
     }
 
 
-    public static synchronized ELS getInstance(Context context) {
+    public static synchronized ELS getInstance() {
         if (mPref == null) {
-            mPref = new ELS(context);
+            mPref = new ELS(BaseApplication.getAppContext());
         }
         return mPref;
     }

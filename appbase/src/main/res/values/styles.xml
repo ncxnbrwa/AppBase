@@ -9,7 +9,7 @@
     </style>
 
     <style name="AppTheme" parent="AppBaseTheme">
-        <item name="android:windowIsTranslucent">true</item>
+        <!--<item name="android:windowIsTranslucent">true</item>-->
         <item name="android:windowAnimationStyle">@style/activity_animation_style</item>
     </style>
 
@@ -22,6 +22,14 @@
         <item name="android:activityOpenExitAnimation">@anim/open_exit</item>
         <item name="android:activityCloseEnterAnimation">@anim/open_enter</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <!--分享对话框-->
+    <style name="shareDialogStyle" parent="AppBaseTheme">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:backgroundDimEnabled">true</item>
     </style>
 
     <!--启动图样式-->

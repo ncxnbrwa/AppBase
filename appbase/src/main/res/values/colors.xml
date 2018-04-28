@@ -11,7 +11,7 @@
     <color name="transparent">#00000000</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
-    <color name="gray">#999999</color>
+    <color name="gray">#8e8e8e</color>
     <color name="dan_gray">#666666</color>
     <color name="blue">#2c90c4</color>
     <color name="blue2">#36B4F2</color>
@@ -21,8 +21,9 @@
     <color name="dimgray">#696969</color>
     <color name="markerview_back">#6F6F6F</color>
     <color name="heat_line_wrap_color">#BDBDBD</color>
+    <color name="text_lable_jb">#333333</color>
     <!--分割线的颜色-->
-    <color name="separate_view_color">#BDBDBD</color>
+    <color name="cut_off_line_color">#E9E9E9</color>
     <!--登录页-->
     <color name="edit_background">#20295B</color>
 </resources>

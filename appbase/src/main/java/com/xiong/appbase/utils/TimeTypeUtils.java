@@ -1,4 +1,4 @@
-package com.xiong.appbase.Base.utils;
+package com.xiong.appbase.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -114,6 +114,12 @@ public class TimeTypeUtils {
     public static String getSpecDate(long timestamp) {
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
+        return sdf.format(new Date(timestamp));
+    }
+
+    public static String timestamp2yyyyMMdd(long timestamp) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
         return sdf.format(new Date(timestamp));
     }
 

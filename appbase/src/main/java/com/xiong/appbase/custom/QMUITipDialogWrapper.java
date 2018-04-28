@@ -83,7 +83,7 @@ public class QMUITipDialogWrapper extends QMUITipDialog {
         public @interface IconType {
         }
 
-        private @QMUITipDialogWrapper.Builder.IconType
+        private @IconType
         int mCurrentIconType = ICON_TYPE_NOTHING;
 
         private Context mContext;
@@ -94,7 +94,7 @@ public class QMUITipDialogWrapper extends QMUITipDialog {
             mContext = context;
         }
 
-        public QMUITipDialogWrapper.Builder setIconType(@QMUITipDialogWrapper.Builder.IconType int iconType) {
+        public Builder setIconType(@IconType int iconType) {
             mCurrentIconType = iconType;
             return this;
         }
@@ -102,7 +102,7 @@ public class QMUITipDialogWrapper extends QMUITipDialog {
         /**
          * 设置显示的文案
          */
-        public QMUITipDialogWrapper.Builder setTipWord(CharSequence tipWord) {
+        public Builder setTipWord(CharSequence tipWord) {
             mTipWord = tipWord;
             return this;
         }
@@ -176,7 +176,7 @@ public class QMUITipDialogWrapper extends QMUITipDialog {
             mContext = context;
         }
 
-        public QMUITipDialogWrapper.CustomBuilder setContent(@LayoutRes int layoutId) {
+        public CustomBuilder setContent(@LayoutRes int layoutId) {
             mContentLayoutId = layoutId;
             return this;
         }

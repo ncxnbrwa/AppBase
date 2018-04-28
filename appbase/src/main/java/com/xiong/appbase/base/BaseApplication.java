@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.xiong.appbase.Base;
+package com.xiong.appbase.base;
 
 import android.app.Activity;
 import android.app.Application;
@@ -9,7 +9,16 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.blankj.utilcode.util.Utils;
-import com.xiong.appbase.Base.utils.DLog;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
+import com.scwang.smartrefresh.layout.api.RefreshFooter;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.umeng.commonsdk.UMConfigure;
+import com.xiong.appbase.utils.DLog;
+import com.xiong.appbase.custom.JbREfreshFooter;
+import com.xiong.appbase.custom.JbRefreshHeader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -21,6 +30,25 @@ import java.util.Stack;
 
 //保存了一些全局可用的方法,含对activity和dialog的相关操作
 public class BaseApplication extends Application {
+
+    //static 代码段可以防止内存泄露
+    static {
+        //设置全局的Header构建器
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
+            @Override
+            public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
+                return new JbRefreshHeader(context);
+            }
+        });
+        //设置全局的Footer构建器
+        SmartRefreshLayout.setDefaultRefreshFooterCreator(new DefaultRefreshFooterCreator() {
+            @Override
+            public RefreshFooter createRefreshFooter(Context context, RefreshLayout layout) {
+                //指定为经典Footer，默认是 BallPulseFooter
+                return new JbREfreshFooter(context);
+            }
+        });
+    }
 
     //activity的栈
     public final Stack<Activity> mActivityStack = new Stack<Activity>();
@@ -37,7 +65,11 @@ public class BaseApplication extends Application {
         mAppInstance = this;
         mContext = getApplicationContext();
         Utils.init(mAppInstance);
-
+        UMConfigure.init(mContext, "5ad83f418f4a9d598d0000aa", "jinbang",
+                UMConfigure.DEVICE_TYPE_PHONE, "");
+//        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+//        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com");
+//        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
     }
 
     //单例

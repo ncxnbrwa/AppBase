@@ -29,6 +29,6 @@ public class LinearLayoutManagerWrapper extends LinearLayoutManager {
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
-
     }
+
 }
