@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.blankj.utilcode.util.ConvertUtils
 import com.myxianwen.share.entity.ShareItem
 import com.xiong.appbase.R
 import kotlinx.android.synthetic.main.share_item.view.*
@@ -31,8 +30,6 @@ class ShareItemAdpater(val list: ArrayList<ShareItem>, val itemClickListener: (S
         fun bind(item: ShareItem) {
             with(item) {
                 itemView.shareIcon.setImageResource(item.iconId)
-                val padding = ConvertUtils.dp2px(16f)
-                itemView.shareIcon.setPadding(padding, padding, padding, padding)
                 itemView.name.text = item.name
                 itemView.setOnClickListener { itemClickListener(this) }
             }

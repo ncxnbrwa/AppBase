@@ -109,7 +109,7 @@ public class JbREfreshFooter extends LinearLayout implements RefreshFooter {
         if (success) {
             mFooterText.setText("加载成功");
         } else {
-            mFooterText.setText("加载失败");
+            mFooterText.setText("没有更多了");
         }
         //延迟回弹时间
         return 300;

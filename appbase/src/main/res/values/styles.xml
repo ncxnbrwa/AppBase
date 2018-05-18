@@ -13,14 +13,14 @@
         <item name="android:windowAnimationStyle">@style/activity_animation_style</item>
     </style>
 
-    <style name="MainActivityTheme" parent="AppBaseTheme">
-        <item name="android:windowAnimationStyle">@style/activity_animation_style</item>
-    </style>
+    <!--<style name="MainActivityTheme" parent="AppBaseTheme">-->
+        <!--<item name="android:windowAnimationStyle">@style/activity_animation_style</item>-->
+    <!--</style>-->
 
     <style name="activity_animation_style">
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
-        <item name="android:activityOpenExitAnimation">@anim/open_exit</item>
-        <item name="android:activityCloseEnterAnimation">@anim/open_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/fade_back</item>
+        <item name="android:activityCloseEnterAnimation">@anim/fade_forward</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
     </style>
 

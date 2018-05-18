@@ -13,15 +13,12 @@ import android.widget.Toast;
 
 import com.xiong.appbase.utils.DLog;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-
 
 public abstract class BaseFragment extends Fragment {
     public BaseApplication mElfApp = null;
     private boolean isViewPrepared; // 标识fragment视图已经初始化完毕
     private boolean hasFetchData; // 标识已经触发过懒加载数据
-    Unbinder unbinder;
+//    Unbinder unbinder;
     static Toast mToast;
     public Activity mActivity;
 
@@ -41,7 +38,7 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutId(), container, false);
-        unbinder = ButterKnife.bind(this, view);
+//        unbinder = ButterKnife.bind(this, view);
         init();
         ViewGroup decorContentView = (ViewGroup) getBaseActivity().findViewById(android.R.id.content);
         ViewGroup rootView = (ViewGroup) decorContentView.getChildAt(0);
@@ -63,7 +60,8 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract int getLayoutId();
 
-    protected abstract void init();
+    protected void init() {
+    }
 
     //该方法可以获取当前fragment是否可见
     @Override
@@ -125,8 +123,8 @@ public abstract class BaseFragment extends Fragment {
         isViewPrepared = false;
         hasFetchData = false;
         DLog.d(getClass().getSimpleName(), "onDestroyView");
+//        unbinder.unbind();
         super.onDestroyView();
-        unbinder.unbind();
     }
 
     @Override

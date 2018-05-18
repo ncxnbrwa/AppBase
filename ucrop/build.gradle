@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+//apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.github.frendyxzc'
+
+android {
+    def ext = rootProject.extensions.getByName("ext")
+    compileSdkVersion ext.target_version
+    buildToolsVersion ext.build_version
+
+    defaultConfig {
+        minSdkVersion ext.min_version
+        targetSdkVersion ext.target_version
+        versionCode 22
+        versionName "2.2.0-native"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        abortOnError false
+    }
+    resourcePrefix 'ucrop_'
+    sourceSets.main {
+        jni.srcDirs = [];
+    }
+
+}
+
+dependencies {
+    compile project(':appbase')
+    def dependencies = rootProject.ext.androidDependencies
+    compile dependencies.recyclerView
+    compile dependencies.support_v4
+    compile 'com.commit451:PhotoView:1.2.4'
+}

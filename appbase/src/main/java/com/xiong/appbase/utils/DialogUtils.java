@@ -1,7 +1,6 @@
 package com.xiong.appbase.utils;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.annotation.ArrayRes;
 import android.text.InputType;
 
@@ -54,17 +53,18 @@ public class DialogUtils {
     }
 
     //有按钮内容的对话框
-    public static MaterialDialog showPositiveNegativeContent(Context context, String title,
-//                                                             String content,
+    public static MaterialDialog showPositiveNegativeContent(Context context,
+//                                                             String title,
+                                                             String content,
                                                              MaterialDialog.SingleButtonCallback
                                                                      callback) {
         MaterialDialog.Builder materialBuilder = new MaterialDialog.Builder(context)
-                .title(title)
-//                .content(content)
+//                .title(title)
+                .content(content)
                 .titleColorRes(R.color.primary_text_color)
-                .contentColorRes(R.color.secondary_text_color)
+                .contentColorRes(R.color.dan_gray)
                 .positiveColorRes(R.color.colorAccent)
-                .negativeColorRes(R.color.colorAccent)
+                .negativeColorRes(R.color.dan_gray)
                 .canceledOnTouchOutside(false)
                 .positiveText(R.string.confirm)
                 .negativeText(R.string.cancel)
@@ -75,19 +75,18 @@ public class DialogUtils {
     //可编辑的对话框
     public static MaterialDialog showEditText(Context context, String title, String hint,
                                               String prefill,
-                                              MaterialDialog.InputCallback inputCallback,
-                                              DialogInterface.OnDismissListener dismissListener) {
+                                              MaterialDialog.InputCallback inputCallback) {
         MaterialDialog.Builder materialBuilder = new MaterialDialog.Builder(context)
                 .title(title)
                 .titleColorRes(R.color.primary_text_color)
-                .positiveColorRes(R.color.colorPrimary)
+                .positiveColorRes(R.color.primary_text_color)
                 .positiveText(R.string.confirm)
                 .negativeText(R.string.cancel)
-                .negativeColorRes(R.color.colorPrimary)
+                .negativeColorRes(R.color.primary_text_color)
+                .inputRangeRes(1, 10, R.color.red)
                 .contentColorRes(R.color.primary_text_color)
                 .inputType(InputType.TYPE_CLASS_TEXT)
-                .input(hint, prefill, inputCallback)
-                .dismissListener(dismissListener);
+                .input(hint, prefill, inputCallback);
         return materialBuilder.build();
     }
 

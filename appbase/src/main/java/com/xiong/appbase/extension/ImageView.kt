@@ -24,7 +24,7 @@ fun ImageView.loadImageCircle(url: String) {
 }
 
 fun ImageView.loadImageRoundedCorners(url: String, radius: Int, margin: Int, cornerType: RoundedCornersTransformation.CornerType) {
-    val options = RequestOptions().placeholder(R.mipmap.place_holder)
+    val options = RequestOptions().placeholder(R.mipmap.zhanweitu)
     Glide.with(context).load(url)
             .apply(options)
             .apply(RequestOptions.bitmapTransform(RoundedCornersTransformation(radius, margin, cornerType)))
@@ -32,12 +32,18 @@ fun ImageView.loadImageRoundedCorners(url: String, radius: Int, margin: Int, cor
 }
 
 fun ImageView.loadImage(url: String) {
-    val options = RequestOptions().placeholder(R.mipmap.place_holder).centerCrop()
+    val options = RequestOptions().placeholder(R.mipmap.zhanweitu).centerCrop()
     Glide.with(context).load(url).apply(options).into(this)
 }
 
 fun ImageView.loadImageFit(url: String) {
-    val options = RequestOptions().placeholder(R.mipmap.place_holder)
+    val options = RequestOptions().placeholder(R.mipmap.zhanweitu)
+    Glide.with(context).load(url).apply(options).into(this)
+}
+
+fun ImageView.loadAvatarFit(url: String) {
+    //加载头像
+    val options = RequestOptions().placeholder(R.mipmap.avatar)
     Glide.with(context).load(url).apply(options).into(this)
 }
 
@@ -46,12 +52,12 @@ fun ImageView.loadImageWithoutHolder(url: String) {
 }
 
 fun ImageView.loadImagePicHolder(url: String) {
-    val options = RequestOptions().placeholder(R.mipmap.place_holder).centerCrop()
+    val options = RequestOptions().placeholder(R.mipmap.zhanweitu).centerCrop()
     Glide.with(context).load(url).apply(options).into(this)
 }
 
 fun ImageView.loadImageFliter(url: String, color: Int) {
-    val options = RequestOptions().placeholder(R.mipmap.place_holder).centerCrop()
+    val options = RequestOptions().placeholder(R.mipmap.zhanweitu).centerCrop()
     Glide.with(context).load(url).apply(options)
             .apply(RequestOptions.bitmapTransform(ColorFilterTransformation(color)))
             .into(this)
@@ -59,5 +65,5 @@ fun ImageView.loadImageFliter(url: String, color: Int) {
 
 //加载本地图片
 fun ImageView.loadLocalImage(file: File) {
-    Glide.with(context).load(file).apply(RequestOptions().centerCrop()).into(this)
+    Glide.with(context).load(file).apply(RequestOptions()).into(this)
 }

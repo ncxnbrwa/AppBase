@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class ELS {
     private static final String ELS = "EL_SharePrefence";
-    private static ELS mPref = null;
+    private static com.xiong.appbase.utils.ELS mPref = null;
     private SharedPreferences mSharePrefer = null;
     private Editor mEditor = null;
 
@@ -24,15 +24,25 @@ public class ELS {
     public static final String COOKIES = "cookies";
     public static final String COOKIES_SET = "cookies_set";
     public static final String IMEI = "imei";
+    public static final String USER_ONLAND = "user_onland";
+    public static final String USER_ONLAND_THIRD = "user_onland_third_party";
+    public static final String THIRD_PARTY_PLATFORM = "third_party_platform";
+    public static final String THIRD_PARTY_USER_ID = "third_party_user_id";
+    public static final String USER_ID = "user_id";
+    public static final String HAS_INIT_DATABASE = "has_init_database";
 
     //清除所用户相关的信息
     public void clearUserInfo() {
-        mEditor.putString(PASSWORD, null);
-        mEditor.apply();
-    }
-
-    //清除用户有关数据除了密码
-    public void clearUserInfoExceptPsw() {
+//        mEditor.putString(PASSWORD, null);
+        mEditor.putBoolean(USER_ONLAND, false);
+        mEditor.putBoolean(USER_ONLAND_THIRD, false);
+        mEditor.putBoolean(HAS_INIT_DATABASE, false);
+        mEditor.putString(THIRD_PARTY_USER_ID, "");
+        mEditor.putString(USER_ID, "");
+        mEditor.putString(PHONE, "");
+        mEditor.putString(USERNAME, "");
+        mEditor.putInt(THIRD_PARTY_PLATFORM, 0);
+        mEditor.putString(USER_IMG, "");
         mEditor.apply();
     }
 
@@ -95,7 +105,7 @@ public class ELS {
     }
 
 
-    public static synchronized ELS getInstance() {
+    public static synchronized com.xiong.appbase.utils.ELS getInstance() {
         if (mPref == null) {
             mPref = new ELS(BaseApplication.getAppContext());
         }

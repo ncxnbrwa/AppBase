@@ -18,5 +18,5 @@ public class Config {
     public static final String WEXIN_HOME_CLASS = "com.tencent.mm.ui.LauncherUI";
 
     //Bugly注册ID
-    public static final String BUGLY_ID = "fb27ffd2e2";
+//    public static final String BUGLY_ID = "854ad346c3";
 }

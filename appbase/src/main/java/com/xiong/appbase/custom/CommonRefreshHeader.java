@@ -114,9 +114,10 @@ public class CommonRefreshHeader extends LinearLayout implements RefreshHeader {
         mProgressDrawable.stop();
         if (success) {
             mHeaderText.setText("刷新成功");
-        } else {
-            mHeaderText.setText("刷新失败");
         }
+//        else {
+//            mHeaderText.setText("刷新失败");
+//        }
         //延迟回弹时间
         return 300;
     }

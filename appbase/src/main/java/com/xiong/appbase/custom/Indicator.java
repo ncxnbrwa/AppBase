@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
 
-import com.blankj.utilcode.util.ScreenUtils;
 import com.xiong.appbase.R;
+import com.xiong.appbase.utils.MyUtils;
 
 
 //自定义进度框
@@ -42,7 +42,7 @@ public class Indicator extends Dialog {
     //设置对话框大小
     private void setDialogSize() {
         LayoutParams layoutParams = getWindow().getAttributes();
-        layoutParams.width = (int) (ScreenUtils.getScreenWidth() * 0.75);
+        layoutParams.width = (int) (MyUtils.getScreenWidth() * 0.75);
         layoutParams.height = android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
         layoutParams.dimAmount = 0f;
         getWindow().setAttributes(layoutParams);

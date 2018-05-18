@@ -107,9 +107,10 @@ public class JbRefreshHeader extends LinearLayout implements RefreshHeader {
     public int onFinish(RefreshLayout layout, boolean success) {
         if (success) {
             mHeaderText.setText("刷新成功");
-        } else {
-            mHeaderText.setText("刷新失败");
         }
+//        else {
+//            mHeaderText.setText("刷新失败");
+//        }
         //延迟回弹时间
         return 300;
     }

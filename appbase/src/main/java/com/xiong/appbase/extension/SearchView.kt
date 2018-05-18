@@ -25,5 +25,5 @@ fun SearchView.setTextStyle(textSize: Float, hintTextColor: Int, textColor: Int)
     //设置字体颜色
     textView.setTextColor(ContextCompat.getColor(context,textColor))
     //设置提示文字颜色
-    textView.setHintTextColor(ContextCompat.getColor(context,textColor))
+    textView.setHintTextColor(ContextCompat.getColor(context,hintTextColor))
 }
