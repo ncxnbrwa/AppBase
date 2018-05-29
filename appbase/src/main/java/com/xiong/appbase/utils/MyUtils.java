@@ -7,12 +7,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,17 +74,13 @@ public class MyUtils {
     }
 
     //流式布局item
-    public static TextView createRelatedItem(Context ctx, String text) {
+    public static TextView createRelatedItem(Context ctx, String text, View.OnClickListener clickListener) {
         TextView relatedItem = new TextView(ctx);
         relatedItem.setBackgroundResource(R.drawable.float_item_bg);
         relatedItem.setTextSize(13f);
         relatedItem.setText(text);
         relatedItem.setTextColor(ContextCompat.getColor(ctx, R.color.text_lable_jb));
-        relatedItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+        relatedItem.setOnClickListener(clickListener);
         return relatedItem;
     }
 
@@ -131,6 +132,40 @@ public class MyUtils {
         }
         NetworkInfo networkinfo = manager.getActiveNetworkInfo();
         return !(networkinfo == null || !networkinfo.isAvailable());
+    }
+
+    //修改某段文字中指定位置的文本色
+    public static SpannableString getSpannableStr(String key, String msg) {
+        SpannableString ss = new SpannableString(msg);
+        int index = msg.indexOf(key);
+        if (index >= 0) {
+            ss.setSpan(new ForegroundColorSpan(Color.parseColor("#C69F73")), index,
+                    index + key.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        return ss;
+    }
+
+    /**
+     * EditText竖直方向是否可以滚动
+     *
+     * @param editText 需要判断的EditText
+     * @return true：可以滚动   false：不可以滚动
+     */
+    public static boolean canVerticalScroll(EditText editText) {
+        //改编自View的canScrollVertically方法
+        //用if (et_message.canScrollVertically(-1) || et_message.canScrollVertically(0)) {}
+        //替代即可
+
+        //滚动的距离
+        int scrollY = editText.getScrollY();
+        //控件内容的总高度
+        int scrollRange = editText.getLayout().getHeight();
+        //控件实际显示的高度
+        int scrollExtent = editText.getHeight() - editText.getCompoundPaddingTop() - editText.getCompoundPaddingBottom();
+        //控件内容总高度与实际显示高度的差值
+        int scrollDifference = scrollRange - scrollExtent;
+
+        return scrollDifference != 0 && ((scrollY > 0) || (scrollY < scrollDifference - 1));
     }
 
 }

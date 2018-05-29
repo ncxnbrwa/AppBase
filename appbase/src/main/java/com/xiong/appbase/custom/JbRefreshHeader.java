@@ -52,7 +52,7 @@ public class JbRefreshHeader extends LinearLayout implements RefreshHeader {
         setGravity(Gravity.CENTER);
         setOrientation(VERTICAL);
         mHeaderText = new TextView(context);
-        mHeaderText.setTextSize(10f);
+        mHeaderText.setTextSize(12f);
         mHeaderText.setTextColor(Color.parseColor("#999999"));
         gif = new GifImageView(context);
         gif.setImageResource(R.drawable.crown);

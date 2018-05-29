@@ -63,7 +63,7 @@ public class DialogUtils {
                 .content(content)
                 .titleColorRes(R.color.primary_text_color)
                 .contentColorRes(R.color.dan_gray)
-                .positiveColorRes(R.color.colorAccent)
+                .positiveColorRes(R.color.colorPrimary)
                 .negativeColorRes(R.color.dan_gray)
                 .canceledOnTouchOutside(false)
                 .positiveText(R.string.confirm)

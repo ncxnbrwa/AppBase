@@ -77,11 +77,10 @@ public class TimeButton extends Button implements View.OnClickListener {
 //
 //            @Override
 //            public void run() {
-//                Log.e("yung", time / 1000 + "");
 //                han.sendEmptyMessage(0x01);
 //            }
 //        };
-        startCount();
+//        startCount();
     }
 
     public void startCount() {
@@ -132,11 +131,13 @@ public class TimeButton extends Button implements View.OnClickListener {
      * 和activity的onDestroy()方法同步
      */
     public void onDestroy() {
-        if (BaseApplication.timeMap == null)
-            BaseApplication.timeMap = new HashMap<String, Long>();
-        BaseApplication.timeMap.put(TIME, time);
-        BaseApplication.timeMap.put(CTIME, System.currentTimeMillis());
-        clearTimer();
+        if (isCounting) {
+            if (BaseApplication.timeMap == null)
+                BaseApplication.timeMap = new HashMap<String, Long>();
+            BaseApplication.timeMap.put(TIME, time);
+            BaseApplication.timeMap.put(CTIME, System.currentTimeMillis());
+            clearTimer();
+        }
     }
 
     /**
@@ -154,8 +155,11 @@ public class TimeButton extends Button implements View.OnClickListener {
             return;
         else {
             initTimer();
+            startCount();
             this.time = Math.abs(time);
-            t.schedule(tt, 0, 1000);
+//            if (t != null && tt != null) {
+//                t.schedule(tt, 0, 1000);
+//            }
             this.setEnabled(false);
         }
     }

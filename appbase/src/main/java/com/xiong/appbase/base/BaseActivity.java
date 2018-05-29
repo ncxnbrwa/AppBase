@@ -23,7 +23,7 @@ import com.xiong.appbase.utils.DLog;
 public abstract class BaseActivity extends AppCompatActivity {
     public Activity mActivity = this;
     public BaseApplication mApp = null;
-//    Unbinder unbinder;
+    //    Unbinder unbinder;
     static Toast mToast;
     //    QMUITipDialog loadingDialog;
     Indicator mProgressDialog;
@@ -33,6 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        mActivity = this;
         //输出Debug信息
         DLog.d(getClass().getSimpleName(), "onCreate");
         mApp = BaseApplication.getInstance();
@@ -78,6 +79,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showLoadingDialog() {
+        if (isFinishing() || mActivity == null) return;
         if (mProgressDialog == null) {
             mProgressDialog = new Indicator(this);
         }
@@ -87,6 +89,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void dismissLoadingDialog() {
+        if (isFinishing() || mActivity == null) return;
         if (mProgressDialog != null) {
             if (mProgressDialog.isShowing()) {
                 mProgressDialog.dismiss();

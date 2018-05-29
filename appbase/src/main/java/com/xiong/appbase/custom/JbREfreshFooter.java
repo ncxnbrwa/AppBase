@@ -28,6 +28,7 @@ import pl.droidsonroids.gif.GifImageView;
 public class JbREfreshFooter extends LinearLayout implements RefreshFooter {
     private TextView mFooterText;//标题文本
     private GifImageView gif;//刷新动画视图
+    protected boolean mLoadmoreFinished = false;
 
     public JbREfreshFooter(Context context) {
         super(context);
@@ -48,7 +49,7 @@ public class JbREfreshFooter extends LinearLayout implements RefreshFooter {
         setGravity(Gravity.CENTER);
         setOrientation(VERTICAL);
         mFooterText = new TextView(context);
-        mFooterText.setTextSize(10f);
+        mFooterText.setTextSize(12f);
         mFooterText.setTextColor(Color.parseColor("#999999"));
         gif = new GifImageView(context);
         gif.setImageResource(R.drawable.crown);
@@ -59,7 +60,17 @@ public class JbREfreshFooter extends LinearLayout implements RefreshFooter {
 
     @Override
     public boolean setNoMoreData(boolean noMoreData) {
-        return false;
+        if (mLoadmoreFinished != noMoreData) {
+            mLoadmoreFinished = noMoreData;
+            if (noMoreData) {
+                mFooterText.setText("我也是有底线的~");
+                gif.setVisibility(GONE);
+            } else {
+                mFooterText.setText("上拉加载");
+                gif.setVisibility(VISIBLE);
+            }
+        }
+        return true;
     }
 
     @NonNull
@@ -106,13 +117,16 @@ public class JbREfreshFooter extends LinearLayout implements RefreshFooter {
 
     @Override
     public int onFinish(@NonNull RefreshLayout refreshLayout, boolean success) {
-        if (success) {
-            mFooterText.setText("加载成功");
-        } else {
-            mFooterText.setText("没有更多了");
+        if (!mLoadmoreFinished) {
+            if (success) {
+                mFooterText.setText("加载成功");
+            } else {
+                mFooterText.setText("加载失败");
+            }
+            //延迟回弹时间
+            return 300;
         }
-        //延迟回弹时间
-        return 300;
+        return 0;
     }
 
     @Override
@@ -127,17 +141,19 @@ public class JbREfreshFooter extends LinearLayout implements RefreshFooter {
 
     @Override
     public void onStateChanged(RefreshLayout refreshLayout, RefreshState oldState, RefreshState newState) {
-        switch (newState) {
-            case None:
-            case PullUpToLoad:
-                mFooterText.setText("上拉加载");
-                break;
-            case Loading:
-                mFooterText.setText("正在加载");
-                break;
-            case ReleaseToLoad:
-                mFooterText.setText("松开即可加载");
-                break;
+        if (!mLoadmoreFinished) {
+            switch (newState) {
+                case None:
+                case PullUpToLoad:
+                    mFooterText.setText("上拉加载");
+                    break;
+                case Loading:
+                    mFooterText.setText("正在加载");
+                    break;
+                case ReleaseToLoad:
+                    mFooterText.setText("松开即可加载");
+                    break;
+            }
         }
     }
 }

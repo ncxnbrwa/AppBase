@@ -9,6 +9,7 @@ public class Config {
     public static int VERSION_SDK_INT = 15;
     public static String API_VERSION = "1.0";
     public static final String MOBILE_TYPE = "ANDROID";
+    public static final String PAGE_TAG = "page_tag";
 
     //微信链接必含参数
     public static final String WEXIN_URL = "mp.weixin.qq.com/s";
@@ -18,5 +19,5 @@ public class Config {
     public static final String WEXIN_HOME_CLASS = "com.tencent.mm.ui.LauncherUI";
 
     //Bugly注册ID
-//    public static final String BUGLY_ID = "854ad346c3";
+    public static final String BUGLY_ID = "854ad346c3";
 }
