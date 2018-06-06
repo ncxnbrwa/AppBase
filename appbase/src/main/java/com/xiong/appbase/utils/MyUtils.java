@@ -168,4 +168,14 @@ public class MyUtils {
         return scrollDifference != 0 && ((scrollY > 0) || (scrollY < scrollDifference - 1));
     }
 
+    //获取状态栏高度
+    public static int getStatusBarHeight(Activity activity) {
+        int statusBarHeight = 0;
+        if (activity != null) {
+            int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
+            statusBarHeight = activity.getResources().getDimensionPixelSize(resourceId);
+        }
+        return statusBarHeight;
+    }
+
 }

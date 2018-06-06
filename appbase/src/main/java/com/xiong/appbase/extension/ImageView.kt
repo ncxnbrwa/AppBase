@@ -13,6 +13,7 @@ import java.io.File
 
 //加载圆形图片
 fun ImageView.loadImageCircle(url: String) {
+    if (context == null) return
     Glide.with(context).asBitmap().load(url).apply(RequestOptions.centerCropTransform())
             .into(object : BitmapImageViewTarget(this) {
                 override fun setResource(resource: Bitmap?) {
@@ -24,46 +25,62 @@ fun ImageView.loadImageCircle(url: String) {
 }
 
 fun ImageView.loadImageRoundedCorners(url: String, radius: Int, margin: Int, cornerType: RoundedCornersTransformation.CornerType) {
-    val options = RequestOptions().placeholder(R.mipmap.zhanweitu)
+    if (context == null) return
     Glide.with(context).load(url)
-            .apply(options)
+            .apply(RequestOptions().placeholder(R.mipmap.zhanweitu))
             .apply(RequestOptions.bitmapTransform(RoundedCornersTransformation(radius, margin, cornerType)))
             .into(this)
 }
 
 fun ImageView.loadImage(url: String) {
-    val options = RequestOptions().placeholder(R.mipmap.zhanweitu).centerCrop()
-    Glide.with(context).load(url).apply(options).into(this)
+    if (context == null) return
+    Glide.with(context).load(url)
+            .apply(RequestOptions().placeholder(R.mipmap.zhanweitu).centerCrop())
+            .into(this)
 }
 
 fun ImageView.loadImageFit(url: String) {
-    val options = RequestOptions().placeholder(R.mipmap.zhanweitu)
-    Glide.with(context).load(url).apply(options).into(this)
+    if (context == null) return
+    Glide.with(context).load(url)
+            .apply(RequestOptions().placeholder(R.mipmap.zhanweitu))
+            .into(this)
 }
 
 fun ImageView.loadAvatarFit(url: String) {
     //加载头像
-    val options = RequestOptions().placeholder(R.mipmap.avatar)
-    Glide.with(context).load(url).apply(options).into(this)
+    if (context == null) return
+    Glide.with(context).load(url)
+            .apply(RequestOptions().placeholder(R.mipmap.avatar))
+            .into(this)
 }
 
 fun ImageView.loadImageWithoutHolder(url: String) {
+    if (context == null) return
     Glide.with(context).load(url).apply(RequestOptions().centerCrop()).into(this)
 }
 
 fun ImageView.loadImagePicHolder(url: String) {
-    val options = RequestOptions().placeholder(R.mipmap.zhanweitu).centerCrop()
-    Glide.with(context).load(url).apply(options).into(this)
+    Glide.with(context).load(url)
+            .apply(RequestOptions().placeholder(R.mipmap.zhanweitu).centerCrop())
+            .into(this)
 }
 
 fun ImageView.loadImageFliter(url: String, color: Int) {
-    val options = RequestOptions().placeholder(R.mipmap.zhanweitu).centerCrop()
-    Glide.with(context).load(url).apply(options)
+    if (context == null) return
+    Glide.with(context).load(url)
+            .apply(RequestOptions().placeholder(R.mipmap.zhanweitu).centerCrop())
             .apply(RequestOptions.bitmapTransform(ColorFilterTransformation(color)))
             .into(this)
 }
 
 //加载本地图片
 fun ImageView.loadLocalImage(file: File) {
+    if (context == null) return
     Glide.with(context).load(file).apply(RequestOptions()).into(this)
+}
+
+//加载资源文件
+fun ImageView.loadResources(resources: Int) {
+    if (context == null) return
+    Glide.with(context).load(resources).apply(RequestOptions()).into(this)
 }

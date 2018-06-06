@@ -4,23 +4,29 @@ package com.xiong.appbase.base;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.xiong.appbase.utils.DLog;
+import com.xiong.appbase.utils.MyUtils;
 
 
 public abstract class BaseFragment extends Fragment {
     public BaseApplication mElfApp = null;
     private boolean isViewPrepared; // 标识fragment视图已经初始化完毕
     private boolean hasFetchData; // 标识已经触发过懒加载数据
-//    Unbinder unbinder;
+    //    Unbinder unbinder;
     static Toast mToast;
     public Activity mActivity;
+    protected View mStatusBarView;
+    private ViewGroup rootView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,13 +43,17 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(getLayoutId(), container, false);
+        rootView = (ViewGroup) inflater.inflate(getLayoutId(), container, false);
 //        unbinder = ButterKnife.bind(this, view);
         init();
-        ViewGroup decorContentView = (ViewGroup) getBaseActivity().findViewById(android.R.id.content);
-        ViewGroup rootView = (ViewGroup) decorContentView.getChildAt(0);
-        rootView.removeView(view);
-        return view;
+//        ViewGroup decorContentView = (ViewGroup) getBaseActivity().findViewById(android.R.id.content);
+//        rootView = (ViewGroup) decorContentView.getChildAt(0);
+//        rootView.removeView(view);
+        ViewGroup parent = (ViewGroup) rootView.getParent();
+        if (parent != null) {
+            parent.removeView(rootView);
+        }
+        return rootView;
     }
 
     @Override
@@ -51,11 +61,6 @@ public abstract class BaseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         isViewPrepared = true;
         canLoadData();
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
     }
 
     protected abstract int getLayoutId();
@@ -115,6 +120,27 @@ public abstract class BaseFragment extends Fragment {
     public void onPause() {
         DLog.d(getClass().getSimpleName(), "onPause");
         super.onPause();
+    }
+
+    protected void addStatusBar(@ColorRes int color) {
+        //添加状态栏占位View,某些情况需要
+        if (mStatusBarView == null) {
+            mStatusBarView = new View(getContext());
+            int screenWidth = MyUtils.getScreenWidth();
+            int statusBarHeight = QMUIStatusBarHelper.getStatusbarHeight(getBaseActivity());
+            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(screenWidth, statusBarHeight);
+            mStatusBarView.setLayoutParams(params);
+            mStatusBarView.setBackgroundColor(ContextCompat.getColor(mActivity, color));
+            mStatusBarView.requestLayout();
+            if (rootView != null)
+                rootView.addView(mStatusBarView, 0);
+        }
+    }
+
+    protected void setStatusBarColor(@ColorRes int color) {
+        if (mStatusBarView != null) {
+            mStatusBarView.setBackgroundColor(ContextCompat.getColor(mActivity, color));
+        }
     }
 
     @Override
