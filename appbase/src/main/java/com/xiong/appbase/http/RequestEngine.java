@@ -14,8 +14,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RequestEngine {
 
-    public static final String HOST = "http://10.1.1.186:11019/";
-    public static final String HOST2 = "http://10.1.1.186:8085/";
+    //    public static final String HOST = "http://10.1.1.186:11019/";
+    public static final String HOST = "http://testrankingapi.imchance.com/";
+    public static final String HOST2 = "http://www.iimedia.cn/";
 
     //轮播
     public static final String GET_BANNER = "posi/gpli";
@@ -98,6 +99,21 @@ public class RequestEngine {
     //初始化收藏
     public static final String INIT_COLLECT = "u/i/iugc";
 
+    //搜索
+    public static final String SEARCH = "u/i/us";
+
+    //专题列表
+    public static final String TOPIC_LIST ="api/sp/specinfoList";
+
+    //专题详情
+    public static final String TOPIC_DETAIL = "api/sp/specRankList";
+
+    //资讯列表
+    public static final String INFO_LIST = "report_inter.jsp";
+
+    //品牌详情导购
+    public static final String BRAND_DG = "api/brand/qbs";
+
     private static OkHttpClient okClient = new OkHttpClient.Builder()
             .addInterceptor(getHttpLoggingInterceptor())
 //            .addInterceptor(new CookiesAddInterceptor())
@@ -111,8 +127,18 @@ public class RequestEngine {
             .client(okClient)
             .build();
 
+    private static Retrofit retrofit2 = new Retrofit.Builder()
+            .baseUrl(HOST2)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okClient)
+            .build();
+
     public static <S> S createService(Class<S> serviceClass) {
         return retrofit.create(serviceClass);
+    }
+
+    public static <S> S createService2(Class<S> serviceClass) {
+        return retrofit2.create(serviceClass);
     }
 
     public static HttpLoggingInterceptor getHttpLoggingInterceptor() {

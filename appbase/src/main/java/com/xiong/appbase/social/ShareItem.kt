@@ -9,11 +9,17 @@ import com.xiong.appbase.R
  */
 data class ShareItem(val type: Int, val name: String, val iconId: Int)
 
+val MY_SHARE_WXFRIEND = 0
+val MY_SHARE_WXCIRCLE = 1
+val MY_SHARE_WEIBO = 2
+val MY_SHARE_QQFRIEND = 3
+val MY_SHARE_COPY = 4
+
 val SHARE_ITEM_LIST = arrayListOf<ShareItem>(
-        ShareItem(0, "微信好友", R.mipmap.btn_wechat),
-        ShareItem(1, "微信朋友圈", R.mipmap.btn_friends),
-        ShareItem(2, "新浪微博", R.mipmap.btn_sina),
-        ShareItem(3, "QQ好友", R.mipmap.btn_qq),
-        ShareItem(4, "复制链接", R.mipmap.btn_copyurl)
+        ShareItem(MY_SHARE_WXFRIEND, "微信好友", R.mipmap.btn_wechat),
+        ShareItem(MY_SHARE_WXCIRCLE, "微信朋友圈", R.mipmap.btn_friends),
+//        ShareItem(MY_SHARE_WEIBO, "新浪微博", R.mipmap.btn_sina),
+        ShareItem(MY_SHARE_QQFRIEND, "QQ好友", R.mipmap.btn_qq),
+        ShareItem(MY_SHARE_COPY, "复制链接", R.mipmap.btn_copyurl)
 )
 

@@ -17,7 +17,15 @@ public class Config {
     public static final String WEXIN_PACKAGE = "com.tencent.mm";
     //微信首页class
     public static final String WEXIN_HOME_CLASS = "com.tencent.mm.ui.LauncherUI";
+    //天猫包名
+    public static final String TMALL_PAKAGE = "com.tmall.wireless";
+    //京东包名
+    public static final String JD_PACKAGE = "com.jingdong.app.mall";
+
+    public static final String JD_WEB = "https://www.jd.com/";
+    public static final String TMALL_WEB = "https://www.tmall.com/";
 
     //Bugly注册ID
     public static final String BUGLY_ID = "854ad346c3";
+
 }

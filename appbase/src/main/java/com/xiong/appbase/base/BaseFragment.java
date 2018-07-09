@@ -3,22 +3,26 @@ package com.xiong.appbase.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.qmuiteam.qmui.util.QMUIDeviceHelper;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.xiong.appbase.utils.DLog;
 import com.xiong.appbase.utils.MyUtils;
 
+import me.yokeyword.fragmentation.SupportFragment;
 
-public abstract class BaseFragment extends Fragment {
+
+//public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends SupportFragment {
     public BaseApplication mElfApp = null;
     private boolean isViewPrepared; // 标识fragment视图已经初始化完毕
     private boolean hasFetchData; // 标识已经触发过懒加载数据
@@ -122,8 +126,28 @@ public abstract class BaseFragment extends Fragment {
         super.onPause();
     }
 
+    @Override
+    public void onResume() {
+        DLog.d(getClass().getSimpleName(), "onResume");
+        super.onResume();
+    }
+
     protected void addStatusBar(@ColorRes int color) {
-        //添加状态栏占位View,某些情况需要
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            return;
+        }
+        if (QMUIDeviceHelper.isMeizu() || QMUIDeviceHelper.isMIUI()) {
+            doAddStatusBar(color);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            doAddStatusBar(color);
+        }
+
+    }
+
+    protected void doAddStatusBar(@ColorRes int color) {
+        //添加状态栏占位View,沉浸式状态栏主页多fragment情况需要
         if (mStatusBarView == null) {
             mStatusBarView = new View(getContext());
             int screenWidth = MyUtils.getScreenWidth();
@@ -138,6 +162,19 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void setStatusBarColor(@ColorRes int color) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            return;
+        }
+        if (QMUIDeviceHelper.isMeizu() || QMUIDeviceHelper.isMIUI()) {
+            doSetStatusBarColor(color);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            doSetStatusBarColor(color);
+        }
+    }
+
+    protected void doSetStatusBarColor(@ColorRes int color) {
         if (mStatusBarView != null) {
             mStatusBarView.setBackgroundColor(ContextCompat.getColor(mActivity, color));
         }

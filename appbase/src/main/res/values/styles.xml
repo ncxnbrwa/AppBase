@@ -14,7 +14,7 @@
     </style>
 
     <!--<style name="MainActivityTheme" parent="AppBaseTheme">-->
-        <!--<item name="android:windowAnimationStyle">@style/activity_animation_style</item>-->
+    <!--<item name="android:windowAnimationStyle">@style/activity_animation_style</item>-->
     <!--</style>-->
 
     <style name="activity_animation_style">
@@ -43,10 +43,10 @@
     <!--Toolbar样式-->
     <style name="AppBaseTheme.Toolbar">
         <item name="android:background">@color/colorPrimary</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:layout_height">48dp</item>
         <item name="android:layout_width">match_parent</item>
     </style>
+
 
     <!--自定义进度框-->
     <style name="indicator_dialog" parent="Theme.AppCompat.Light.Dialog">

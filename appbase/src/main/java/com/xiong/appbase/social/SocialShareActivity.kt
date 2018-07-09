@@ -14,7 +14,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.text.TextUtils
 import android.widget.Toast
 import com.myxianwen.share.adapter.ShareItemAdpater
-import com.myxianwen.share.entity.SHARE_ITEM_LIST
+import com.myxianwen.share.entity.*
 import com.umeng.socialize.ShareAction
 import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.UMShareListener
@@ -25,7 +25,6 @@ import com.xiong.appbase.R
 import com.xiong.appbase.base.BaseActivity
 import com.xiong.appbase.extension.addGridDivider
 import kotlinx.android.synthetic.main.activity_social_share.*
-import org.jetbrains.anko.toast
 
 /**
  * Created by iiMedia on 2018/4/19.
@@ -34,15 +33,17 @@ import org.jetbrains.anko.toast
 class SocialShareActivity : BaseActivity() {
     private val mContext = this
 
-    private var url: String? = null
     private var title: String? = null
     private var content: String? = null
     private var image: String? = null
-    private var id: Int = 0
+    private var rankingId: Int = 0
+    private var brandId: Int = 0
     private var type: Int = 0
-    private var sn: String? = null
     private val requestPermissionCode = 123
     private var firstOpenResume = false
+    private val mActivity = this
+    private val rankingUrl = "http://ranking.iimedia.cn/m-brand-list.html?rankId="
+    private val brandUrl = "http://ranking.iimedia.cn/m-brand-detail.html?brandId="
 
     override fun getLayoutId(): Int {
         return R.layout.activity_social_share
@@ -54,9 +55,8 @@ class SocialShareActivity : BaseActivity() {
 
         initView()
         initShareData(intent)
-        //设置4列的layoutmanager
-        val gridlayoutmanager = GridLayoutManager(mActivity, 4)
-        share_list.layoutManager = gridlayoutmanager
+        //设置4列
+        share_list.layoutManager = GridLayoutManager(mActivity, 4)
         share_list.addGridDivider(mActivity)
         share_list.adapter = ShareItemAdpater(SHARE_ITEM_LIST, {
             shareIt(it.type)
@@ -65,18 +65,14 @@ class SocialShareActivity : BaseActivity() {
 
     //初始化分享数据
     private fun initShareData(intent: Intent) {
-        this.url = intent.getStringExtra("url")
-        this.title = intent.getStringExtra("title")
-        this.content = intent.getStringExtra("content")
-        this.image = intent.getStringExtra("image")
-        this.id = intent.getIntExtra("id", 0)
-        this.type = intent.getIntExtra("type", TYPE_NEWS)
-        this.sn = intent.getStringExtra("sn")
-        if (TextUtils.isEmpty(this.url)) {
-//            this.url = "${_BASE_URL_OTHER}/shareArticle.action?news_id=${id}"
-        }
+        this.title = intent.getStringExtra(DATA_TITLE).trim()
+        this.content = intent.getStringExtra(DATA_CONTENT).trim()
+        this.image = intent.getStringExtra(DATA_IMAGE)
+        this.rankingId = intent.getIntExtra(DATA_RANKINGID, 0)
+        this.brandId = intent.getIntExtra(DATA_BRANDID, 0)
+        this.type = intent.getIntExtra(DATA_TYPE, TYPE_RANKING)
 
-        if (content == null || content == "") {
+        if (content == null || TextUtils.isEmpty(content)) {
             //没有内容简介，内容设置为文章标题
             content = title
         }
@@ -103,57 +99,46 @@ class SocialShareActivity : BaseActivity() {
     }
 
     //分享的点击事件
-    private fun shareIt(type: Int) {
-        when (type) {
-            0 -> {
-//                platform_id = PLATFORM4WEXIN
-                if (type == TYPE_AD) {
-                    shareWeixinFrend(url!!, title!!, content!!, image!!)
-                } else if (type == TYPE_TOPIC) {
-//                    shareWeixinFrend(url + "&platform_id=" + platform_id, topicPre + title!!, content!!, image!!)
-                } else {
-//                    shareWeixinFrend(url + "&platform_id=" + platform_id, title!!, content!!, image!!)
+    private fun shareIt(platType: Int) {
+        when (platType) {
+            MY_SHARE_WXFRIEND -> {
+                if (type == TYPE_RANKING) {
+                    shareWeixinFriend("$rankingUrl$rankingId", title!!, content!!, image!!)
+                } else if (type == TYPE_BRAND) {
+                    shareWeixinFriend("$brandUrl$brandId", title!!, content!!, image!!)
                 }
             }
-            1 -> {
-//                platform_id = PLATFORM4CIRCLE
-                if (type == TYPE_AD) {
-                    shareWeixinCircle(url!!, title!!, content!!, image!!)
-                } else if (type == TYPE_TOPIC) {
-//                    shareWeixinCircle(url + "&platform_id=" + platform_id, topicPre + title!!, content!!, image!!)
-                } else {
-//                    shareWeixinCircle(url + "&platform_id=" + platform_id, title!!, content!!, image!!)
+            MY_SHARE_WXCIRCLE -> {
+                if (type == TYPE_RANKING) {
+                    shareWeixinCircle("$rankingUrl$rankingId", title!!, content!!, image!!)
+                } else if (type == TYPE_BRAND) {
+                    shareWeixinCircle("$brandUrl$brandId", title!!, content!!, image!!)
                 }
             }
-            2 -> {
-//                platform_id = PLATFORM4WEIBO
-                if (type == TYPE_AD) {
-                    shareSina(url!!, title!!, content!!, image!!)
-                } else if (type == TYPE_TOPIC) {
-//                    shareSina(url + "&platform_id=" + platform_id, topicPre + title!!, content!!, image!!)
-                } else {
-//                    shareSina(url + "&platform_id=" + platform_id, title!!, content!!, image!!)
+            MY_SHARE_WEIBO -> {
+                if (type == TYPE_RANKING) {
+                    shareSina("$rankingUrl$rankingId", title!!, content!!, image!!)
+                } else if (type == TYPE_BRAND) {
+                    shareSina("$brandUrl$brandId", title!!, content!!, image!!)
                 }
             }
-            3 -> {
-//                platform_id = PLATFORM4QQ
-                if (type == TYPE_AD) {
-                    shareQQFriend(url!!, title!!, content!!, image!!)
-                } else {
-//                    shareQQFriend(url + "&platform_id=" + platform_id, title!!, content!!, image!!)
+            MY_SHARE_QQFRIEND -> {
+                if (type == TYPE_RANKING) {
+                    shareQQFriend("$rankingUrl$rankingId", title!!, content!!, image!!)
+                } else if (type == TYPE_BRAND) {
+                    shareQQFriend("$brandUrl$brandId", title!!, content!!, image!!)
                 }
             }
-            4 -> {
-//                platform_id = PLATFORM4COPY
+            MY_SHARE_COPY -> {
                 val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val cd: ClipData
-                if (type == TYPE_AD) {
-                    cd = ClipData.newPlainText("label", url)
+                if (type == TYPE_RANKING) {
+                    cd = ClipData.newPlainText("label", "$rankingUrl$rankingId")
                 } else {
-                    cd = ClipData.newPlainText("label", url)
+                    cd = ClipData.newPlainText("label", "$brandUrl$brandId")
                 }
                 clipboardManager.primaryClip = cd
-                toast("已放入剪切板")
+                showToast("已放入剪切板")
                 closeTheWindows()
             }
         }
@@ -177,7 +162,7 @@ class SocialShareActivity : BaseActivity() {
         ShareWeb(SHARE_MEDIA.WEIXIN_CIRCLE, url, title, content, image)
     }
 
-    private fun shareWeixinFrend(url: String, title: String, content: String, image: String) {
+    private fun shareWeixinFriend(url: String, title: String, content: String, image: String) {
         ShareWeb(SHARE_MEDIA.WEIXIN, url, title, content, image)
     }
 
@@ -206,16 +191,14 @@ class SocialShareActivity : BaseActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == requestPermissionCode) {
-            if (grantResults.size > 0 &&
+            if (grantResults.isNotEmpty() &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             }
         }
     }
 
     private val shareListener = object : UMShareListener {
-        override fun onStart(platform: SHARE_MEDIA) {
-
-        }
+        override fun onStart(platform: SHARE_MEDIA) {}
 
         override fun onResult(platform: SHARE_MEDIA) {
             Toast.makeText(mContext, "分享成功", Toast.LENGTH_LONG).show()
@@ -254,35 +237,32 @@ class SocialShareActivity : BaseActivity() {
     }
 
     companion object {
-        private val IVSIBLE = 0
-        private val FINISH = 1
 
-        val PLATFORM4WEXIN = 0
-        val PLATFORM4CIRCLE = 1
-        val PLATFORM4WEIBO = 2
-        val PLATFORM4QQ = 3
-        val PLATFORM4QQZONE = 4
-        val PLATFORM4EMILE = 5
-        val PLATFORM4COPY = 6
-        val PLATFORM4QQWEIBO = 7
-
-        val TYPE_NEWS = 0
-        val TYPE_AD = 1
+        val TYPE_RANKING = 0
+        val TYPE_BRAND = 1
         val TYPE_TOPIC = 2
+        val DATA_TITLE = "title"
+        val DATA_CONTENT = "content"
+        val DATA_IMAGE = "image"
+        val DATA_RANKINGID = "rankingId"
+        val DATA_BRANDID = "brandId"
+        val DATA_TYPE = "type"
 
-        private fun newIntent(context: Context, url: String, title: String, content: String, image: String, id: Int, type: Int): Intent {
+        private fun newIntent(context: Context, title: String, content: String
+                              , image: String, rankingId: Int, brandId: Int, type: Int): Intent {
             val intent = Intent(context, SocialShareActivity::class.java)
-            intent.putExtra("url", url)
-            intent.putExtra("title", title)
-            intent.putExtra("content", content)
-            intent.putExtra("image", image)
-            intent.putExtra("id", id)
-            intent.putExtra("type", type)
+            intent.putExtra(DATA_TITLE, title)
+            intent.putExtra(DATA_CONTENT, content)
+            intent.putExtra(DATA_IMAGE, image)
+            intent.putExtra(DATA_RANKINGID, rankingId)
+            intent.putExtra(DATA_BRANDID, brandId)
+            intent.putExtra(DATA_TYPE, type)
             return intent
         }
 
-        fun intentTo(activity: Activity, url: String, title: String, content: String, image: String, id: Int, type: Int) {
-            activity.startActivity(newIntent(activity, url, title, content, image, id, type))
+        fun intentTo(activity: Activity, title: String, content: String
+                     , image: String, rankingId: Int, brandId: Int, type: Int) {
+            activity.startActivity(newIntent(activity, title, content, image, rankingId, brandId, type))
             activity.overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out)
         }
 

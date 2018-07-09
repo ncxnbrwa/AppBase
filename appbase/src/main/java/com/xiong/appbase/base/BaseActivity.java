@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -13,14 +12,18 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
+import com.umeng.analytics.MobclickAgent;
 import com.xiong.appbase.R;
 import com.xiong.appbase.custom.Indicator;
 import com.xiong.appbase.utils.DLog;
 
+import me.yokeyword.fragmentation.SupportActivity;
+
 
 //基础activity
 //public abstract class BaseActivity extends SwipeBackActivity {
-public abstract class BaseActivity extends AppCompatActivity {
+//public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends SupportActivity {
     public BaseApplication mApp = null;
     //    Unbinder unbinder;
     static Toast mToast;
@@ -52,6 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         DLog.d(getClass().getSimpleName(), "onResume");
         super.onResume();
+        MobclickAgent.onResume(this);
     }
 
     /**
@@ -101,6 +105,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onPause() {
         DLog.d(getClass().getSimpleName(), "onPause");
         super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     @Override

@@ -99,4 +99,20 @@ public class KeyboardUtils {
 //        }
 //        return super.dispatchTouchEvent(ev);
 //    }
+    //Kotlin写法
+//    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+//        if (ev?.action == MotionEvent.ACTION_DOWN) {
+//            val view = currentFocus
+//            if (KeyboardUtils.isShouldHideKeyboard(view, ev)) {
+//                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//                try {
+//                    imm.hideSoftInputFromWindow(view.windowToken, 0);
+//                } catch (e: Exception) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//        return super.dispatchTouchEvent(ev);
+//    }
+
 }

@@ -21,7 +21,7 @@ import com.xiong.appbase.R;
  * @date 2016/9/7
  */
 public class PagerIndexView extends View {
-    private int mCurrentPage = -1;
+    private int mCurrentPage = 0;
     private int mTotalPage = 0;
 
     public PagerIndexView(Context context) {
@@ -77,6 +77,23 @@ public class PagerIndexView extends View {
         });
     }
 
+//    public void bindViewPager(final Banner banner) {
+//        banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                setCurrentPage(position);
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//            }
+//        });
+//    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -98,10 +115,10 @@ public class PagerIndexView extends View {
         int y = (r.height() - iconHeight) / 2;
 
         for (int i = 0; i < mTotalPage; i++) {
-            int resid = R.mipmap.indicator_black;
+            int resid = R.mipmap.indicator;
             //当前选中状态的点
             if (i == mCurrentPage) {
-                resid = R.mipmap.indicator_sel;
+                resid = R.mipmap.indicator_black;
             }
             //绘制图片区域
             Rect r1 = new Rect();

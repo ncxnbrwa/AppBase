@@ -64,7 +64,7 @@ dependencies {
     compile viewDependencies.material_dialogs
     compile viewDependencies.rey5137_material
     compile viewDependencies.fragmentation
-    compile viewDependencies.fragmentation_swipe
+//    compile viewDependencies.fragmentation_swipe
     compile viewDependencies.gif
     compile viewDependencies.glide
     annotationProcessor viewDependencies.glideAnnotationProcessor
@@ -79,6 +79,10 @@ dependencies {
     compile 'com.tencent.bugly:crashreport:2.6.6'
     compile 'com.tencent.bugly:nativecrashreport:3.3.1'
     compile 'org.litepal.android:core:1.6.1'
+//    compile ('com.alibaba.android:vlayout:1.2.8@aar') {
+//        transitive = true
+//    }
+//    compile 'com.youth.banner:banner:1.4.10'  //最新版本
 }
 repositories {
     mavenCentral()

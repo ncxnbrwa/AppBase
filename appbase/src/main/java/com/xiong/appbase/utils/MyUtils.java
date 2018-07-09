@@ -10,6 +10,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
+import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
@@ -101,6 +103,18 @@ public class MyUtils {
         return df.format(d);
     }
 
+    //形如001
+    public static String formatPosition3(int i) {
+        DecimalFormat df = new DecimalFormat("#000");
+        return df.format(i);
+    }
+
+    //形如01
+    public static String formatPosition2(int i) {
+        DecimalFormat df = new DecimalFormat("#00");
+        return df.format(i);
+    }
+
     public static int getScreenWidth() {
         return BaseApplication.getAppContext().getResources().getDisplayMetrics().widthPixels;
     }
@@ -109,9 +123,14 @@ public class MyUtils {
         return BaseApplication.getAppContext().getResources().getDisplayMetrics().heightPixels;
     }
 
-    public static int dp2px(final float dpValue) {
+    public static int dp2px(float dpValue) {
         final float scale = BaseApplication.getAppContext().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
+    }
+
+    public static int px2dp(float pxValue) {
+        final float scale = BaseApplication.getAppContext().getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
     }
 
     public static void showToast(String msg) {
@@ -135,7 +154,7 @@ public class MyUtils {
     }
 
     //修改某段文字中指定位置的文本色
-    public static SpannableString getSpannableStr(String key, String msg) {
+    public static SpannableString getSpannableForeStr(String key, String msg) {
         SpannableString ss = new SpannableString(msg);
         int index = msg.indexOf(key);
         if (index >= 0) {
@@ -178,4 +197,45 @@ public class MyUtils {
         return statusBarHeight;
     }
 
+    //跳转京东APP商品详情
+    public static void gotoJdAppGoods(Context context, String id) {
+        String uri = "openapp.jdmobile://virtual?params={\"sourceValue\":\"0_productDetail_97\",\"des\":\"productDetail\",\"skuId\":\"" +
+                id +
+                "\",\"category\":\"jump\",\"sourceType\":\"PCUBE_CHANNEL\"}";
+        intentWithUri(context, uri);
+    }
+
+    //跳转京东APP店铺详情
+    public static void gotoJdAppShop(Context context, String shopId) {
+        String uri = "openApp.jdMobile://virtual?params={\"category\":\"jump\",\"des\":\"jshopMain\",\"shopId\":\"" +
+                shopId + "\",\"sourceType\":\"M_sourceFrom\",\"sourceValue\":\"dp\"}";
+        intentWithUri(context, uri);
+    }
+
+    //跳转天猫APP商品详情
+    public static void gotoTmAppGoods(Context context, String id) {
+        String uri = "tmall://tmallclient/?{\"action\":”item:id=" +
+                id +
+                "”}";
+        intentWithUri(context, uri);
+    }
+
+    //跳转天猫APP店铺
+    public static void gotoTmAppShop(Context context, String shopId) {
+        String uri = "tmall://page.tm/shop?shopId=" + shopId;
+        intentWithUri(context, uri);
+    }
+
+    public static void intentWithUri(Context context, String uri) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(uri));
+        context.startActivity(intent);
+        DLog.w(TAG, "intentWithUri:" + uri);
+    }
+
+    //判断是否在主线程
+    public static boolean isOnMainThread() {
+        return Thread.currentThread() == Looper.getMainLooper().getThread();
+    }
 }

@@ -10,6 +10,7 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.View
+import android.view.View.OnKeyListener
 import android.webkit.*
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -30,6 +31,7 @@ class KWebViewExt @JvmOverloads constructor(context: Context, attrs: AttributeSe
     internal var mRootView: LinearLayout? = null
     //    internal var mScrollView: NestedScrollView? = null
     internal var mNoImageMode: Boolean = false
+    var titleListener: OnReceivedTitleListener? = null
 
     init {
         initView(context)
@@ -85,7 +87,7 @@ class KWebViewExt @JvmOverloads constructor(context: Context, attrs: AttributeSe
         mWebView?.settings?.blockNetworkImage = true
 
         // 设置WebViewClient
-        mWebView?.setWebViewClient(object : WebViewClient() {
+        mWebView?.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
                 // 使用自己的WebView组件来响应Url加载事件，而不是使用默认浏览器器加载页面
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -107,18 +109,18 @@ class KWebViewExt @JvmOverloads constructor(context: Context, attrs: AttributeSe
                 if (!mNoImageMode) view?.settings?.blockNetworkImage = false
                 super.onPageFinished(view, url)
             }
-        })
+        }
 
         // 设置WebChromeClient
-        mWebView?.setWebChromeClient(object : WebChromeClient() {
+        mWebView?.webChromeClient = object : WebChromeClient() {
 
             override fun onJsAlert(view: WebView?, url: String?, message: String?, result: JsResult?): Boolean {
                 val alertDialog = AlertDialog.Builder(context).setMessage(message)
                         .setPositiveButton("确定",
-                                { dialog, which -> result?.confirm() }).show()
+                                { _, _ -> result?.confirm() }).show()
                 alertDialog.setCanceledOnTouchOutside(false)
                 alertDialog.setOnKeyListener(
-                        { dialog, keyCode, event ->
+                        { _, keyCode, _ ->
                             if (keyCode == KeyEvent.KEYCODE_BACK) {
                                 result?.confirm()
                             }
@@ -129,10 +131,10 @@ class KWebViewExt @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
             override fun onJsConfirm(view: WebView?, url: String?, message: String?, result: JsResult?): Boolean {
                 val alertDialog = AlertDialog.Builder(context).setMessage(message)
-                        .setPositiveButton("确定") { dialog, which -> result?.confirm() }
-                        .setNegativeButton("取消") { dialog, which -> result?.cancel() }.show()
+                        .setPositiveButton("确定") { _, _ -> result?.confirm() }
+                        .setNegativeButton("取消") { _, _ -> result?.cancel() }.show()
                 alertDialog.setCanceledOnTouchOutside(false)
-                alertDialog.setOnKeyListener { dialog, keyCode, event ->
+                alertDialog.setOnKeyListener { _, keyCode, _ ->
                     if (keyCode == KeyEvent.KEYCODE_BACK) {
                         result?.cancel()
                     }
@@ -147,11 +149,11 @@ class KWebViewExt @JvmOverloads constructor(context: Context, attrs: AttributeSe
                 val alertDialog = AlertDialog.Builder(context).setTitle(message)
                         .setView(editText)
                         .setPositiveButton("确定",
-                                { dialog, which -> result?.confirm(editText.getText().toString()) })
+                                { _, _ -> result?.confirm(editText.getText().toString()) })
                         .setNegativeButton("取消",
-                                { dialog, which -> result?.cancel() }).show()
+                                { _, _ -> result?.cancel() }).show()
                 alertDialog.setCanceledOnTouchOutside(false)
-                alertDialog.setOnKeyListener({ dialog, keyCode, event ->
+                alertDialog.setOnKeyListener({ _, keyCode, _ ->
                     if (keyCode == KeyEvent.KEYCODE_BACK) {
                         result?.cancel()
                     }
@@ -166,20 +168,31 @@ class KWebViewExt @JvmOverloads constructor(context: Context, attrs: AttributeSe
                 super.onProgressChanged(view, newProgress)
             }
 
-        })
-
-        mWebView?.setOnKeyListener(object : View.OnKeyListener {
-            override fun onKey(v: View, keyCode: Int, event: KeyEvent): Boolean {
-                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    // 表示按返回键
-                    if (keyCode == KeyEvent.KEYCODE_BACK && mWebView!!.canGoBack()) {
-                        mWebView!!.goBack()
-                        return true
-                    }
-                }
-                return false
+            override fun onReceivedTitle(view: WebView?, title: String?) {
+                super.onReceivedTitle(view, title)
+                titleListener?.receivedTitle(title)
             }
+
+        }
+
+        mWebView?.setOnKeyListener(OnKeyListener { _, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN) {
+                // 表示按返回键
+                if (keyCode == KeyEvent.KEYCODE_BACK && mWebView!!.canGoBack()) {
+                    mWebView!!.goBack()
+                    return@OnKeyListener true
+                }
+            }
+            false
         })
+    }
+
+    interface OnReceivedTitleListener {
+        fun receivedTitle(title: String?)
+    }
+
+    fun setOnReceivedTitleListener(listener: OnReceivedTitleListener) {
+        this.titleListener = listener
     }
 
     fun goBack(): Boolean {
