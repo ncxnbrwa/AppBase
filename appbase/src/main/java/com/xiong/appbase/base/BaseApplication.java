@@ -18,6 +18,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
+import com.xiong.appbase.BuildConfig;
 import com.xiong.appbase.custom.JbREfreshFooter;
 import com.xiong.appbase.custom.JbRefreshHeader;
 import com.xiong.appbase.utils.DLog;
@@ -49,7 +50,6 @@ public class BaseApplication extends MultiDexApplication {
         SmartRefreshLayout.setDefaultRefreshFooterCreator(new DefaultRefreshFooterCreator() {
             @Override
             public RefreshFooter createRefreshFooter(Context context, RefreshLayout layout) {
-                //指定为经典Footer，默认是 BallPulseFooter
                 return new JbREfreshFooter(context);
             }
         });
@@ -70,6 +70,9 @@ public class BaseApplication extends MultiDexApplication {
         mAppInstance = this;
         mContext = getApplicationContext();
 //        Utils.init(this);
+        PlatformConfig.setWeixin("wxbeba563b69131e25", "f2a2f876b3eaee41148232fe9e51387b");
+        PlatformConfig.setQQZone("1106685804", "otZiNgl4wbjCWsmB");
+//        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com");
         UMConfigure.init(mContext, "5ad83f418f4a9d598d0000aa", "jinbang",
                 UMConfigure.DEVICE_TYPE_PHONE, "");
         //bugly
@@ -83,12 +86,11 @@ public class BaseApplication extends MultiDexApplication {
         //数据库
         LitePal.initialize(this);
         // 初始化Bugly
-//        CrashReport.initCrashReport(mContext, Config.BUGLY_ID, false, strategy);
-//        CrashReport.testJavaCrash();
+        if (!BuildConfig.mbDebugMode) {
+            CrashReport.initCrashReport(mContext, Config.BUGLY_ID, false, strategy);
+//            CrashReport.testJavaCrash();
+        }
 
-//        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
-//        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com");
-        PlatformConfig.setQQZone("1106685804", "otZiNgl4wbjCWsmB");
     }
 
     @Override
