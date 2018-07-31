@@ -165,7 +165,7 @@ public class MyUtils {
     }
 
     /**
-     * EditText竖直方向是否可以滚动
+     * EditText竖直方向是否可以滚动,处理多行时和ScrollView的冲突
      *
      * @param editText 需要判断的EditText
      * @return true：可以滚动   false：不可以滚动
@@ -237,5 +237,27 @@ public class MyUtils {
     //判断是否在主线程
     public static boolean isOnMainThread() {
         return Thread.currentThread() == Looper.getMainLooper().getThread();
+    }
+
+    // 防止用户频繁点击屏幕
+    private static long lastClickTime;
+    public synchronized static boolean isFastClick() {
+        long time = System.currentTimeMillis();
+        if ( time - lastClickTime < 500) {
+            return true;
+        }
+        lastClickTime = time;
+        return false;
+    }
+
+    // 防止用户频繁点击屏幕，避免与isFastClick相互干扰
+    private static long lastClickTime2;
+    public synchronized static boolean isFastClick2() {
+        long time = System.currentTimeMillis();
+        if ( time - lastClickTime2 < 500) {
+            return true;
+        }
+        lastClickTime2 = time;
+        return false;
     }
 }

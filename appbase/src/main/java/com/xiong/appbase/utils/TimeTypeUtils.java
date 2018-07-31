@@ -1,5 +1,6 @@
 package com.xiong.appbase.utils;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -160,5 +161,161 @@ public class TimeTypeUtils {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = df.parse(releaseTime);
         return date.getTime() / 1000;
+    }
+
+    //获取当前△T对应的单位时间值
+    public static String getMarginTime(long getTime) {
+        String stander;
+        long currentTime = System.currentTimeMillis();
+        long marginTime = currentTime - getTime;            //得到一个毫秒值
+        double t1 = marginTime / 1000 / 60;                     //得到分钟值
+        double t2 = t1 / 60;                                  //得到小时值
+        double t3 = t2 / 24;                                  //得到天值
+        // new BigDecimal(t1).setScale(0, BigDecimal.ROUND_HALF_UP) 此方法用于四舍五入取整
+        if (t3 >= 1) {
+            //如果大于一天，一天为单位返回
+            stander = getyyyyMMddHHmm(getTime);
+        } else if (t2 >= 1) {
+            //如果大于一小时，一小时为单位返回
+            stander = new BigDecimal(t2).setScale(0, BigDecimal.ROUND_HALF_UP) + "小时前";
+        } else {
+            stander = new BigDecimal(t1).setScale(0, BigDecimal.ROUND_HALF_UP) + "分钟前";
+            if (t1 < 1)
+                stander = "刚刚";
+        }
+        return stander;
+    }
+
+    //获取当前△T对应的单位时间值
+    public static String getMarginTimeWithinDay(long getTime) {
+        String stander;
+        long currentTime = System.currentTimeMillis();
+        long marginTime = (currentTime - getTime);           //得到一个毫秒值
+        marginTime = marginTime / 4;
+        double t1 = marginTime / 1000 / 60;                     //得到分钟值
+        double t2 = t1 / 60;                                  //得到小时值
+        double t3 = t2 / 24;                                  //得到天值
+        // new BigDecimal(t1).setScale(0, BigDecimal.ROUND_HALF_UP) 此方法用于四舍五入取整
+        if (t3 >= 1) {
+            //如果大于一天，一天为单位返回
+//            stander = new BigDecimal(t3).setScale(0, BigDecimal.ROUND_HALF_UP) +"天前";
+            stander = "";
+        } else if (t2 >= 1 && t2 != 24) {
+            //如果大于一小时，一小时为单位返回
+            stander = new BigDecimal(t2).setScale(0, BigDecimal.ROUND_HALF_UP) + "小时前";
+        } else {
+            if (t1 < 1) {
+                stander = "刚刚";
+            } else {
+                stander = new BigDecimal(t1).setScale(0, BigDecimal.ROUND_HALF_UP) + "分钟前";
+            }
+        }
+        return stander;
+    }
+
+    //获取当前△T对应的单位时间值
+    public static boolean getMarginTimeTOTWOHours(long getTime) {
+        boolean stander = false;
+        long currentTime = System.currentTimeMillis();
+        long marginTime = (currentTime - getTime) / 4;            //得到一个毫秒值
+        double t1 = marginTime / 1000 / 60;                     //得到分钟值
+        double t2 = t1 / 60;                                  //得到小时值
+        if (t2 >= 2) {
+            stander = true;
+        }
+        return stander;
+    }
+
+    public static String getMarginTimeOrDate(long getTime) {
+        String stander;
+        long currentTime = System.currentTimeMillis();
+        long marginTime = currentTime - getTime;            //得到一个毫秒值
+        double t1 = marginTime / 1000 / 60;                     //得到分钟值
+        double t2 = t1 / 60;                                  //得到小时值
+        double t3 = t2 / 24;                                  //得到天值
+        // new BigDecimal(t1).setScale(0, BigDecimal.ROUND_HALF_UP) 此方法用于四舍五入取整
+        if (t3 >= 1) {
+            //如果大于一天，返回日期
+            stander = getyyyyMMdd(getTime);
+        } else if (t2 >= 1) {
+            //如果大于一小时，一小时为单位返回
+            stander = new BigDecimal(t2).setScale(0, BigDecimal.ROUND_HALF_UP) + "小时前";
+        } else {
+            stander = new BigDecimal(t1).setScale(0, BigDecimal.ROUND_HALF_UP) + "分钟前";
+            if (t1 < 1)
+                stander = "刚刚";
+        }
+        return stander;
+    }
+
+    public static String ConvertToHHmmss(double sec) {
+        long ms = (long) (sec * 1000);
+        SimpleDateFormat formatter;
+        if (sec >= 3600) {
+            formatter = new SimpleDateFormat("HH:mm:ss");
+        } else {
+            formatter = new SimpleDateFormat("mm:ss");
+        }
+        String hms = formatter.format(ms);
+        return hms;
+    }
+
+    public static String getHHMM(long getTime) {
+        String hhmm = "";
+        SimpleDateFormat format = new SimpleDateFormat("HH");
+        int hour = Integer.valueOf(format.format(getTime));
+        format = new SimpleDateFormat("mm");
+        int minute = Integer.valueOf(format.format(getTime));
+        if (hour < 10) {
+            hhmm = "0" + hour + ":";
+        } else {
+            hhmm = hour + ":";
+        }
+        if (minute < 10) {
+            hhmm = hhmm + "0" + minute;
+        } else {
+            hhmm = hhmm + minute;
+        }
+        return hhmm;
+    }
+
+    public static int getDataVale(long getTime) {
+        SimpleDateFormat format = new SimpleDateFormat("dd");
+        int dataValue = Integer.valueOf(format.format(getTime));
+        return dataValue;
+    }
+
+    public static int getMouthVale(long getTime) {
+        SimpleDateFormat format = new SimpleDateFormat("MM");
+        int mouthValue = Integer.valueOf(format.format(getTime));
+        return mouthValue;
+    }
+
+    public static String getHHmm(long ms) {
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+        String ret = formatter.format(ms);
+        return ret;
+    }
+
+    public static String getMMDD(long getTime) {
+        String hhmm = "";
+        SimpleDateFormat format = new SimpleDateFormat("MM");
+        int mouth = Integer.valueOf(format.format(getTime));
+        format = new SimpleDateFormat("dd");
+        int data = Integer.valueOf(format.format(getTime));
+        hhmm = mouth + "月" + data + "日";
+        return hhmm;
+    }
+
+    public static String getyyyyMMddHHmm(long ms) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String ret = formatter.format(ms);
+        return ret;
+    }
+
+    public static String getyyyyMMdd(long ms) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String ret = formatter.format(ms);
+        return ret;
     }
 }
