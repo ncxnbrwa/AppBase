@@ -115,24 +115,6 @@ public class MyUtils {
         return df.format(i);
     }
 
-    public static int getScreenWidth() {
-        return BaseApplication.getAppContext().getResources().getDisplayMetrics().widthPixels;
-    }
-
-    public static int getScreenHeight() {
-        return BaseApplication.getAppContext().getResources().getDisplayMetrics().heightPixels;
-    }
-
-    public static int dp2px(float dpValue) {
-        final float scale = BaseApplication.getAppContext().getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
-    }
-
-    public static int px2dp(float pxValue) {
-        final float scale = BaseApplication.getAppContext().getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
-    }
-
     public static void showToast(String msg) {
         if (mToast != null) {
             mToast.cancel();
@@ -165,7 +147,7 @@ public class MyUtils {
     }
 
     /**
-     * EditText竖直方向是否可以滚动,处理多行时和ScrollView的冲突
+     * EditText竖直方向是否可以滚动
      *
      * @param editText 需要判断的EditText
      * @return true：可以滚动   false：不可以滚动
@@ -227,37 +209,15 @@ public class MyUtils {
     }
 
     public static void intentWithUri(Context context, String uri) {
+        DLog.w(TAG, "intentWithUri:" + uri);
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(uri));
         context.startActivity(intent);
-        DLog.w(TAG, "intentWithUri:" + uri);
     }
 
     //判断是否在主线程
     public static boolean isOnMainThread() {
         return Thread.currentThread() == Looper.getMainLooper().getThread();
-    }
-
-    // 防止用户频繁点击屏幕
-    private static long lastClickTime;
-    public synchronized static boolean isFastClick() {
-        long time = System.currentTimeMillis();
-        if ( time - lastClickTime < 500) {
-            return true;
-        }
-        lastClickTime = time;
-        return false;
-    }
-
-    // 防止用户频繁点击屏幕，避免与isFastClick相互干扰
-    private static long lastClickTime2;
-    public synchronized static boolean isFastClick2() {
-        long time = System.currentTimeMillis();
-        if ( time - lastClickTime2 < 500) {
-            return true;
-        }
-        lastClickTime2 = time;
-        return false;
     }
 }

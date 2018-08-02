@@ -16,6 +16,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.xiong.appbase.R;
 import com.xiong.appbase.custom.Indicator;
 import com.xiong.appbase.utils.DLog;
+import com.xiong.appbase.utils.ScreenUtils;
 
 import me.yokeyword.fragmentation.SupportActivity;
 
@@ -35,6 +36,7 @@ public abstract class BaseActivity extends SupportActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        ScreenUtils.adaptScreen4VerticalSlide(this, 375);
         //输出Debug信息
         DLog.d(getClass().getSimpleName(), "onCreate");
         mApp = BaseApplication.getInstance();
@@ -106,6 +108,12 @@ public abstract class BaseActivity extends SupportActivity {
         DLog.d(getClass().getSimpleName(), "onPause");
         super.onPause();
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        DLog.d(getClass().getSimpleName(), "onStop");
     }
 
     @Override

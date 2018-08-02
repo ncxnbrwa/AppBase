@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.qmuiteam.qmui.util.QMUIDeviceHelper;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.xiong.appbase.utils.DLog;
-import com.xiong.appbase.utils.MyUtils;
+import com.xiong.appbase.utils.ScreenUtils;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -150,7 +150,7 @@ public abstract class BaseFragment extends SupportFragment {
         //添加状态栏占位View,沉浸式状态栏主页多fragment情况需要
         if (mStatusBarView == null) {
             mStatusBarView = new View(getContext());
-            int screenWidth = MyUtils.getScreenWidth();
+            int screenWidth = ScreenUtils.getScreenWidth();
             int statusBarHeight = QMUIStatusBarHelper.getStatusbarHeight(getBaseActivity());
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(screenWidth, statusBarHeight);
             mStatusBarView.setLayoutParams(params);
