@@ -6,6 +6,7 @@ import android.os.Build
 import android.util.AttributeSet
 import android.webkit.WebSettings
 import android.webkit.WebView
+import com.xiong.appbase.utils.ScreenUtils
 
 /**
  * Created by iiMedia on 2017/7/24.
@@ -63,4 +64,8 @@ class KWebView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
 //        settings.userAgentString = "$agentStr ngzbapp/${BuildConfig.VERSION_NAME}"
     }
 
+    override fun setOverScrollMode(mode: Int) {
+        super.setOverScrollMode(mode)
+        ScreenUtils.restoreAdaptScreen()
+    }
 }
