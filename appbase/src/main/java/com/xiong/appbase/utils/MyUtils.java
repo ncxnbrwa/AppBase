@@ -3,20 +3,29 @@ package com.xiong.appbase.utils;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Looper;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.telephony.TelephonyManager;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.EditText;
@@ -28,6 +37,9 @@ import com.xiong.appbase.base.BaseActivity;
 import com.xiong.appbase.base.BaseApplication;
 import com.xiong.appbase.base.Config;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
@@ -41,6 +53,8 @@ import java.util.List;
 public class MyUtils {
     public static final String TAG = "MyUtils";
     public static Toast mToast;
+    public static final int MEDIA_TAKE_PHOTO = 1;
+    public static final int MEDIA_CHOOSE_PICTURE = 2;
 
     //检测某APP是否安装
     public static boolean isAppInstalled(Context context, String packageName) {
@@ -220,4 +234,113 @@ public class MyUtils {
     public static boolean isOnMainThread() {
         return Thread.currentThread() == Looper.getMainLooper().getThread();
     }
+
+    //打开相机
+    public static Uri openCamera(Activity mActivity, String imgName) {
+        Uri imageUri;
+        File imageFile = new File(mActivity.getExternalCacheDir(), imgName);
+        try {
+            if (imageFile.exists()) {
+                imageFile.delete();
+            }
+            imageFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (Build.VERSION.SDK_INT < 24) {
+            imageUri = Uri.fromFile(imageFile);
+        } else {
+            imageUri = FileProvider.getUriForFile(mActivity, "com.aspire.andcloudbackup.provider", imageFile);
+        }
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        mActivity.startActivityForResult(intent, MEDIA_TAKE_PHOTO);
+        return imageUri;
+    }
+
+    //打开相册
+    public static void openAlbum(Activity mActivity) {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        mActivity.startActivityForResult(intent, MEDIA_CHOOSE_PICTURE);
+    }
+
+    /**
+     * @param uri       图片对应Uri
+     * @param selection 图片查找条件
+     * @return 图片真实路径
+     */
+    public static String getImagePath(Activity mActivity, Uri uri, String selection) {
+        String path = "";
+        Cursor cursor = mActivity.getContentResolver().query(uri, null, selection, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            }
+            cursor.close();
+        }
+        return path;
+    }
+
+    /**
+     * 处理相册图片uri
+     *
+     * @param mActivity 上下文
+     * @param data      返回的intent数据
+     * @return 返回最终图片地址
+     */
+    public static String handleImagePath(Activity mActivity, Intent data) {
+        String imagePath = "";
+        if (Build.VERSION.SDK_INT >= 19) {
+            Uri uri = data.getData();
+            if (DocumentsContract.isDocumentUri(mActivity, uri)) {
+                String docId = DocumentsContract.getDocumentId(uri);
+                if (uri.getAuthority().equals("com.android.providers.media.documents")) {
+                    String selection = MediaStore.Images.Media._ID + "=" + docId.split(":")[1];
+                    imagePath = getImagePath(mActivity, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
+                } else if (uri.getAuthority().equals("com.android.providers.downloads.documents")) {
+                    Uri contentUri = ContentUris.withAppendedId(Uri.parse
+                            ("content://downloads/public_downloads"), Long.valueOf(docId));
+                    imagePath = getImagePath(mActivity, contentUri, null);
+                }
+            } else if (uri.getScheme().equals("content")) {
+                imagePath = getImagePath(mActivity, uri, null);
+            } else if (uri.getScheme().equals("file")) {
+                imagePath = uri.getPath();
+            }
+        } else {
+            Uri uri = data.getData();
+            imagePath = getImagePath(mActivity, uri, null);
+        }
+        return imagePath;
+    }
+
+    //拍照和打开相册回调处理
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        switch (requestCode) {
+//            case Utils.MEDIA_TAKE_PHOTO:
+//                if (resultCode == Activity.RESULT_OK) {
+//                    try {
+//                        Bitmap bmp = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri));
+//                        finalPicture.setVisibility(View.VISIBLE);
+//                        finalPicture.setImageBitmap(bmp);
+//                    } catch (FileNotFoundException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                break;
+//            case Utils.MEDIA_CHOOSE_PICTURE:
+//                String imagePath = Utils.handleImagePath(getActivity(), data);
+//                if (!TextUtils.isEmpty(imagePath)) {
+//                    Bitmap bmp = BitmapFactory.decodeFile(imagePath);
+//                    finalPicture.setVisibility(View.VISIBLE);
+//                    finalPicture.setImageBitmap(bmp);
+//                } else {
+//                    CommonToastUtils.showToast(getActivity(), "图片解析失败");
+//                }
+//                break;
+//        }
+//    }
 }

@@ -48,37 +48,37 @@ def releaseTime() {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile androidDependencies.appcompat_v7
-    compile androidDependencies.recyclerView
-    compile androidDependencies.cardview_v7
-    compile androidDependencies.design
-    compile viewDependencies.retrofit2
-    compile viewDependencies.retrofit2_gson
-    compile viewDependencies.okhttp3_logging
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api 'com.android.support.constraint:constraint-layout:1.0.2'
+    api androidDependencies.appcompat_v7
+    api androidDependencies.recyclerView
+    api androidDependencies.cardview_v7
+    api androidDependencies.design
+    api viewDependencies.retrofit2
+    api viewDependencies.retrofit2_gson
+    api viewDependencies.okhttp3_logging
 //    compile viewDependencies.butterknife
 //    annotationProcessor viewDependencies.butterknife_compiler
 //    compile viewDependencies.util_code
-    compile viewDependencies.qmui
-    compile viewDependencies.material_dialogs
-    compile viewDependencies.rey5137_material
-    compile viewDependencies.fragmentation
+    api viewDependencies.qmui
+//    api viewDependencies.material_dialogs
+    api viewDependencies.rey5137_material
+    api viewDependencies.fragmentation
 //    compile viewDependencies.fragmentation_swipe
-    compile viewDependencies.gif
-    compile viewDependencies.glide
+    api viewDependencies.gif
+    api viewDependencies.glide
     annotationProcessor viewDependencies.glideAnnotationProcessor
-    compile viewDependencies.glideTransformations
-    compile viewDependencies.smart_refresh
-    compile 'com.github.frendyxzc:TabLayout:0.0.5'
+    api viewDependencies.glideTransformations
+    api viewDependencies.smart_refresh
+    api 'com.github.frendyxzc:TabLayout:0.0.5'
 //    compile 'com.github.hackware1993:MagicIndicator:1.5.0'
-    compile "org.jetbrains.anko:anko-common:$anko_version"
+    api "org.jetbrains.anko:anko-common:$anko_version"
     implementation "com.android.support:multidex:1.0.2"
-    compile "io.reactivex.rxjava2:rxjava:2.0.6"
-    compile "io.reactivex.rxjava2:rxandroid:2.0.1"
-    compile 'com.tencent.bugly:crashreport:2.6.6'
-    compile 'com.tencent.bugly:nativecrashreport:3.3.1'
-    compile 'org.litepal.android:core:1.6.1'
+    api "io.reactivex.rxjava2:rxjava:2.0.6"
+    api "io.reactivex.rxjava2:rxandroid:2.0.1"
+    api 'com.tencent.bugly:crashreport:2.6.6'
+    api 'com.tencent.bugly:nativecrashreport:3.3.1'
+    api 'org.litepal.android:core:1.6.1'
 //    compile ('com.alibaba.android:vlayout:1.2.8@aar') {
 //        transitive = true
 //    }

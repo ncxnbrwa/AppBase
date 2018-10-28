@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AppBase.iml" filepath="$PROJECT_DIR$/AppBase.iml" />
-      <module fileurl="file://E:\ncx\APP\GitHub\AppBase\appbase\app.iml" filepath="E:\ncx\APP\GitHub\AppBase\appbase\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/appbase/appbase.iml" filepath="$PROJECT_DIR$/appbase/appbase.iml" />
       <module fileurl="file://$PROJECT_DIR$/mediasel/mediasel.iml" filepath="$PROJECT_DIR$/mediasel/mediasel.iml" />
       <module fileurl="file://$PROJECT_DIR$/ucrop/ucrop.iml" filepath="$PROJECT_DIR$/ucrop/ucrop.iml" />

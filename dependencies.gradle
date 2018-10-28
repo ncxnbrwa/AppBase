@@ -19,6 +19,7 @@ ext {
     glideTransformations = '3.1.1'
     util_code_version = '1.9.10'
     material_dialogs_version = '0.8.5.3'
+//    material_dialogs_version = '2.0.0-beta4'
     qmui_version = '1.0.4'
     rey5137_material_version = '1.2.4'
     gif_version = '1.2.3'
