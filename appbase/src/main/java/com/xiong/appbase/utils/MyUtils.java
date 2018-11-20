@@ -37,8 +37,10 @@ import com.xiong.appbase.base.BaseActivity;
 import com.xiong.appbase.base.BaseApplication;
 import com.xiong.appbase.base.Config;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -343,4 +345,26 @@ public class MyUtils {
 //                break;
 //        }
 //    }
+
+    /**
+     * 图片质量压缩方法
+     *
+     * @param bmp  要压缩的Bitmap
+     * @param file 压缩图片存放的路径
+     */
+    public static void compressImage(Bitmap bmp, File file) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        int options = 20;
+        bmp.compress(Bitmap.CompressFormat.JPEG, options, baos);
+        try {
+            // 把压缩后的数据ByteArrayOutputStream存放到FileOutputStream中
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(baos.toByteArray());
+            fos.flush();
+            fos.close();
+            DLog.w("uploadimg", "压缩后图片大小:" + file.length() / 1024 + "K");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
