@@ -68,7 +68,7 @@ public class KeyboardUtils {
     public static boolean isShouldHideKeyboard(View v, MotionEvent event) {
         if (v != null && (v instanceof EditText)) {
             int[] l = {0, 0};
-            //在窗口中计算这个视图的坐标。参数必须是两个整数的数组。方法返回后，数组包含该View的x和y位置
+            //在窗口中计算这个视图的坐标。参数必须是两个整数的数组。方法返回后，数组包含该View左上角的x和y位置
             v.getLocationInWindow(l);
             //计算出View的上下左右位置
             int left = l[0],

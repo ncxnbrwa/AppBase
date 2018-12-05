@@ -367,4 +367,26 @@ public class MyUtils {
             e.printStackTrace();
         }
     }
+
+    //判断字符长度是否合适,汉字为2个字符
+    public static boolean isStrSuitable(String name, int suitLength) {
+        if (TextUtils.isEmpty(name)) {
+            return false;
+        }
+        boolean flag = true;
+        int charLength = 0;
+        String chinese = "[\u4e00-\u9fa5]";
+        for (int i = 0; i < name.length(); i++) {
+            String tmp = name.substring(i, i + 1);
+            if (tmp.matches(chinese)) {
+                charLength += 2;
+            } else {
+                charLength++;
+            }
+        }
+        if (charLength > suitLength) {
+            flag = false;
+        }
+        return flag;
+    }
 }
