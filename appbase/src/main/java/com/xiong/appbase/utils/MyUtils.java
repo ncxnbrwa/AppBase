@@ -389,4 +389,18 @@ public class MyUtils {
         }
         return flag;
     }
+
+    //获取当前版本号
+    public static String getVersionName() {
+        String versionName = "";
+        Context context = BaseApplication.getAppContext();
+        PackageManager manager = context.getPackageManager();
+        try {
+            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+            versionName = info.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionName;
+    }
 }
