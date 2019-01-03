@@ -9,7 +9,7 @@ import android.webkit.WebView
 import com.xiong.appbase.utils.ScreenUtils
 
 /**
- * Created by iiMedia on 2017/7/24.
+ * Created by xiong on 2017/7/24.
  * 自定义WebView,预先定义好一些常规设置
  */
 

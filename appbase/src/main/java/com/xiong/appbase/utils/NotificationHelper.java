@@ -12,7 +12,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 
 /**
- * Created by iiMedia on 2018/5/29.
+ * Created by xiong on 2018/5/29.
  * 8.0适配通知工具
  */
 

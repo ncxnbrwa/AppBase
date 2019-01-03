@@ -10,7 +10,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 /**
- * Created by iiMedia on 2018/4/26.
+ * Created by xiong on 2018/4/26.
  * GridLayoutManager万能分割线,瀑布流也可以用
  */
 

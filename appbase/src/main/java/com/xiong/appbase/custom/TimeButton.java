@@ -16,7 +16,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Created by iiMedia on 2018/5/9.
+ * Created by xiong on 2018/5/9.
  * 倒计时Button
  */
 

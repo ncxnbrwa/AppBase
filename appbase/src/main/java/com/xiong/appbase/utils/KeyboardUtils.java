@@ -12,7 +12,7 @@ import android.widget.EditText;
 import com.xiong.appbase.base.BaseApplication;
 
 /**
- * Created by iiMedia on 2018/5/17.
+ * Created by xiong on 2018/5/17.
  * 键盘工具类
  */
 

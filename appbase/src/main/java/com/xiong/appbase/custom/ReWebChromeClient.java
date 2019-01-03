@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 /**
- * Created by iiMedia on 2017/11/9.
+ * Created by xiong on 2017/11/9.
  */
 
 public class ReWebChromeClient extends WebChromeClient {

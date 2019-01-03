@@ -4,7 +4,7 @@ import com.xiong.appbase.R
 
 
 /**
- * Created by iiMedia on 2017/8/19.
+ * Created by xiong on 2017/8/19.
  * 分享填充adapter的数据
  */
 data class ShareItem(val type: Int, val name: String, val iconId: Int)

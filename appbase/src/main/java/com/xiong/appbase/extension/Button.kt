@@ -4,7 +4,7 @@ import android.widget.Button
 import com.xiong.appbase.R
 
 /**
- * Created by iiMedia on 2018/5/12.
+ * Created by xiong on 2018/5/12.
  */
 //验证码按钮使用
 fun Button.setVerify(flag: Boolean = true) {

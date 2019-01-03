@@ -8,7 +8,7 @@ import com.xiong.appbase.R;
 
 
 /**
- * Created by iiMedia on 2017/12/14.
+ * Created by xiong on 2017/12/14.
  */
 
 public class DialogUtils {

@@ -4,7 +4,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 
 /**
- * Created by iiMedia on 2018/5/9.
+ * Created by xiong on 2018/5/9.
  * 可以少些两个不经常用的方法
  */
 

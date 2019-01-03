@@ -7,7 +7,7 @@ import android.view.Gravity
 import com.xiong.appbase.R
 
 /**
- * Created by iiMedia on 2018/4/23.
+ * Created by xiong on 2018/4/23.
  */
 fun SearchView.setTextStyle(textSize: Float, hintTextColor: Int, textColor: Int) {
     //获取到TextView的控件

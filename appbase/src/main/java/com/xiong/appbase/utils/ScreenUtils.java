@@ -9,7 +9,7 @@ import android.util.DisplayMetrics;
 import com.xiong.appbase.base.BaseApplication;
 
 /**
- * Created by iiMedia on 2018/8/2.
+ * Created by xiong on 2018/8/2.
  * 尺寸及适配工具集合
  */
 

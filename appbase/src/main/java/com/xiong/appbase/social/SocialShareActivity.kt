@@ -27,7 +27,7 @@ import com.xiong.appbase.extension.addGridDivider
 import kotlinx.android.synthetic.main.activity_social_share.*
 
 /**
- * Created by iiMedia on 2018/4/19.
+ * Created by xiong on 2018/4/19.
  * 分享弹窗
  */
 class SocialShareActivity : BaseActivity() {

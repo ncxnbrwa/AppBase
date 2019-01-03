@@ -4,7 +4,7 @@ import android.support.v4.view.ViewPager
 import android.view.View
 
 /**
- * Created by iiMedia on 2018/4/24.
+ * Created by xiong on 2018/4/24.
  * ViewPager切换,放大缩放动画
  */
 class ScaleTransformer : ViewPager.PageTransformer {

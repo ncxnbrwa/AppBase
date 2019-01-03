@@ -45,10 +45,12 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
- * Created by iiMedia on 2017/12/14.
+ * Created by xiong on 2017/12/14.
  * 常用工具类
  */
 
@@ -402,5 +404,21 @@ public class MyUtils {
             e.printStackTrace();
         }
         return versionName;
+    }
+
+    //查找特殊字符无脑写法
+    public static boolean findSpecialChar(String str) {
+        Matcher matcher = Pattern.compile("[`~!@#$%^&*()+=|{}':;',\\[\\]<>/?~！@#￥%……&*（）_——+|{}【】‘；：”“’。，、？]")
+                .matcher(str);
+        return matcher.find();
+    }
+
+    //正则：用户名，取值范围为a-z,A-Z,0-9,汉字
+    public static boolean matchUserName(String str) {
+        return matchRegex("^[a-zA-Z0-9\\u4e00-\\u9fa5]+$", str);
+    }
+
+    public static boolean matchRegex(String pattern, String str) {
+        return Pattern.matches(pattern, str);
     }
 }

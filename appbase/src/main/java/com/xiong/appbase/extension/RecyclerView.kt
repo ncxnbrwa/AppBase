@@ -9,7 +9,7 @@ import com.xiong.appbase.R
 import com.xiong.appbase.custom.GridDividerItemDecoration
 
 /**
- * Created by iiMedia on 2018/4/25.
+ * Created by xiong on 2018/4/25.
  * RecyclerView扩展方法
  */
 //添加分割线

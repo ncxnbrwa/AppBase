@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.telecom.Call;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -15,10 +16,15 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.umeng.analytics.MobclickAgent;
 import com.xiong.appbase.R;
 import com.xiong.appbase.custom.Indicator;
+import com.xiong.appbase.http.UploadImgEngine;
+import com.xiong.appbase.http.UploadImgService;
 import com.xiong.appbase.utils.DLog;
 import com.xiong.appbase.utils.ScreenUtils;
 
 import me.yokeyword.fragmentation.SupportActivity;
+import okhttp3.ResponseBody;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 //基础activity

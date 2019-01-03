@@ -1,7 +1,7 @@
 package com.xiong.appbase.utils;
 
 /**
- * Created by iiMedia on 2018/5/9.
+ * Created by xiong on 2018/5/9.
  * 常用正则
  */
 

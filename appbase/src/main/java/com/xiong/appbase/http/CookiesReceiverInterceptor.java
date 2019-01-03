@@ -10,7 +10,7 @@ import okhttp3.Interceptor;
 import okhttp3.Response;
 
 /**
- * Created by iiMedia on 2017/12/12.
+ * Created by xiong on 2017/12/12.
  * 获取Cookies的拦截器
  */
 

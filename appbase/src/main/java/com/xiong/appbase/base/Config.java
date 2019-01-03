@@ -1,7 +1,7 @@
 package com.xiong.appbase.base;
 
 /**
- * Created by iiMedia on 2017/12/14.
+ * Created by xiong on 2017/12/14.
  * 一些不变的参数
  */
 

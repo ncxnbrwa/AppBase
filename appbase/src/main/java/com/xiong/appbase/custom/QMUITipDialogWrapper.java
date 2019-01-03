@@ -27,7 +27,7 @@ import java.lang.annotation.RetentionPolicy;
 
 
 /**
- * Created by iiMedia on 2018/1/2.
+ * Created by xiong on 2018/1/2.
  * 自定义可返回关闭的Tip,就是包了一层而已
  */
 

@@ -3,7 +3,7 @@ package com.iimedia.appbase.view.webview.interfaces
 import android.webkit.JavascriptInterface
 
 /**
- * Created by iiMedia on 2017/9/12.
+ * Created by xiong on 2017/9/12.
  */
 open class JSInterface(val listener: (Int, String) -> Unit) {
 

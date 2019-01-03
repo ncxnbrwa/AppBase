@@ -21,7 +21,7 @@ import com.xiong.appbase.R;
 import pl.droidsonroids.gif.GifImageView;
 
 /**
- * Created by iiMedia on 2018/4/24.
+ * Created by xiong on 2018/4/24.
  * 金榜上拉加载footer
  */
 

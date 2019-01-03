@@ -21,7 +21,7 @@ import com.scwang.smartrefresh.layout.internal.pathview.PathsView;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
 
 /**
- * Created by iiMedia on 2018/4/18.
+ * Created by xiong on 2018/4/18.
  * 通用下拉刷新头
  */
 

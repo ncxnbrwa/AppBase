@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * Created by iiMedia on 2018/4/25.
+ * Created by xiong on 2018/4/25.
  * 用于解决ViewPager和NestedScrollView嵌套的冲突
  */
 

@@ -11,7 +11,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Created by iiMedia on 2017/12/12.
+ * Created by xiong on 2017/12/12.
  * 添加Cookies的拦截器
  */
 

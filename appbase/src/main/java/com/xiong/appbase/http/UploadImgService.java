@@ -8,7 +8,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 
 /**
- * Created by iiMedia on 2018/5/16.
+ * Created by xiong on 2018/5/16.
  */
 
 public interface UploadImgService {

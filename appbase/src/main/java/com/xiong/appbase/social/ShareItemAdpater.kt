@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.share_item.view.*
 import java.util.*
 
 /**
- * Created by iiMedia on 2017/8/19.
+ * Created by xiong on 2017/8/19.
  * 分享视图adapter
  */
 class ShareItemAdpater(val list: ArrayList<ShareItem>, val itemClickListener: (ShareItem) -> Unit) : RecyclerView.Adapter<ShareItemAdpater.ViewHolder>() {

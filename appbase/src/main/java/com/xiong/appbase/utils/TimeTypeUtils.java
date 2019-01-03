@@ -1,5 +1,8 @@
 package com.xiong.appbase.utils;
 
+import com.xiong.appbase.http.UploadImgEngine;
+import com.xiong.appbase.http.UploadImgService;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,7 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by iiMedia on 2017/12/12.
+ * Created by xiong on 2017/12/12.
  * 时间工具类
  */
 
@@ -317,5 +320,25 @@ public class TimeTypeUtils {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String ret = formatter.format(ms);
         return ret;
+    }
+
+    //获取两个日期的时间间隔
+    public static int countDateInterval(long startTime, long endTime) {
+        //把日期的时分秒毫秒全部置为0,只比对日的单位
+        Calendar startCalendar = Calendar.getInstance();
+        startCalendar.setTime(new Date(startTime));
+        startCalendar.set(Calendar.HOUR_OF_DAY, 0);
+        startCalendar.set(Calendar.MINUTE, 0);
+        startCalendar.set(Calendar.SECOND, 0);
+        startCalendar.set(Calendar.MILLISECOND, 0);
+
+        Calendar endCalendar = Calendar.getInstance();
+        endCalendar.setTime(new Date(endTime));
+        endCalendar.set(Calendar.HOUR_OF_DAY, 0);
+        endCalendar.set(Calendar.MINUTE, 0);
+        endCalendar.set(Calendar.SECOND, 0);
+        endCalendar.set(Calendar.MILLISECOND, 0);
+        return (int) ((endCalendar.getTime().getTime() - startCalendar.getTime().getTime()) / (1000 * 60 * 60 * 24));
+
     }
 }

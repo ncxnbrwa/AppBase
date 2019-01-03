@@ -9,7 +9,7 @@ import com.xiong.appbase.custom.QMUITipDialogWrapper;
 
 
 /**
- * Created by iiMedia on 2017/12/11.
+ * Created by xiong on 2017/12/11.
  * 提示工具
  */
 
