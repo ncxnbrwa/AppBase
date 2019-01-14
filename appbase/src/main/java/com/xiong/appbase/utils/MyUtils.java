@@ -421,4 +421,31 @@ public class MyUtils {
     public static boolean matchRegex(String pattern, String str) {
         return Pattern.matches(pattern, str);
     }
+
+    /**
+     * 号码中间转换符号,区间为[begin,end)
+     *
+     * @param phoneNumber 需要转换的号码
+     * @param begin       需要转换的开始位置
+     * @param end         需要转换的结尾位置
+     * @param pattern     需要拼接的符号,*或x
+     * @return 转换后的字符串
+     */
+    private static String encodePhone(String phoneNumber, int begin, int end, String pattern) {
+        StringBuilder sb = new StringBuilder();
+        if (phoneNumber.length() > begin) {
+            sb.append(phoneNumber.substring(0, begin));
+            for (int i = 0; i < end - begin; i++) {
+                sb.append(pattern);
+            }
+            if (phoneNumber.length() > end) {
+                sb.append(phoneNumber.substring(end, phoneNumber.length()));
+            }
+        } else {
+            for (int j = 0; j < phoneNumber.length(); j++) {
+                sb.append(pattern);
+            }
+        }
+        return sb.toString();
+    }
 }
