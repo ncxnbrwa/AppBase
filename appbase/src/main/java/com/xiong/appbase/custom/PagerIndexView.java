@@ -7,8 +7,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 
 import com.xiong.appbase.R;
@@ -23,15 +25,41 @@ import com.xiong.appbase.R;
 public class PagerIndexView extends View {
     private int mCurrentPage = 0;
     private int mTotalPage = 0;
+    private Paint mPaint;
+    //图标宽高
+    private int iconWidth;
+    private int iconHeight;
+    //图标间隔
+    private int space;
+    //选中的图标和未选中的图标
+    private Bitmap selectedBmp, unselectedBmp;
+    //绘制Bitmap的矩形区域
+    private Rect rect;
 
     public PagerIndexView(Context context) {
-        super(context);
+        this(context, null);
     }
 
-    public PagerIndexView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public PagerIndexView(Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, 0);
     }
 
+    public PagerIndexView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        mPaint = new Paint();
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setColor(Color.BLACK);
+        iconWidth = dp2px(10);
+        iconHeight = dp2px(10);
+        //有些图标自带间隔,所以这里设置为0也没事
+        space = dp2px(0);
+        //第二个参数必须是图片,用XML资源使用会报错
+        selectedBmp = BitmapFactory.decodeResource(getResources(), R.drawable.selected_indicator);
+        unselectedBmp = BitmapFactory.decodeResource(getResources(), R.drawable.unselected_indicator);
+        rect = new Rect();
+    }
+
+    //设置指示器总数,必须调用一次
     public void setTotalPage(int nPageNum) {
         mTotalPage = nPageNum;
         if (mCurrentPage >= mTotalPage)
@@ -58,11 +86,11 @@ public class PagerIndexView extends View {
         }
     }
 
+    //绑定ViewPager监听
     public void bindViewPager(final ViewPager vp) {
         vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -72,51 +100,49 @@ public class PagerIndexView extends View {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
+        invalidate();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.BLACK);
-
-        Rect r = new Rect();
-        //获取View的绘制范围，即左、上、右、下边界相对于此View的左顶点的距离(偏移量),即0、0、View的宽、View的高
-        this.getDrawingRect(r);
-
-        int iconWidth = 40;
-        int iconHeight = 20;
-        int space = 12;
-
-        //x相当于左边距,作为水平绘制起点
-        int x = (r.width() - (iconWidth * mTotalPage + space * (mTotalPage - 1))) / 2;
+        //x相当于左边距,作为水平绘制起点,减去padding,保证绘制在中间
+        int x = (getWidth() - (iconWidth * mTotalPage + space * (mTotalPage - 1))) / 2;
         //y相当于上边距,作为竖直绘制起点
-        int y = (r.height() - iconHeight) / 2;
-
+        int y = (getHeight() - iconHeight) / 2;
         for (int i = 0; i < mTotalPage; i++) {
-            int resid = R.mipmap.indicator;
+            //绘制图片区域
+            rect.left = x;
+            rect.top = y;
+            rect.right = x + iconWidth;
+            rect.bottom = y + iconHeight;
             //当前选中状态的点
             if (i == mCurrentPage) {
-                resid = R.mipmap.indicator_black;
+                canvas.drawBitmap(selectedBmp, null, rect, mPaint);
+            } else {
+                canvas.drawBitmap(unselectedBmp, null, rect, mPaint);
             }
-            //绘制图片区域
-            Rect r1 = new Rect();
-            r1.left = x;
-            r1.top = y;
-            r1.right = x + iconWidth;
-            r1.bottom = y + iconHeight;
-
-            Bitmap bmp = BitmapFactory.decodeResource(getResources(), resid);
-            canvas.drawBitmap(bmp, null, r1, paint);
-
             //迭代x,画下一个图
             x += iconWidth + space;
-
         }
+    }
 
+    private int dp2px(int values) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, values,
+                getResources().getDisplayMetrics());
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        //及时销毁Bitmap资源
+        if (null != selectedBmp && !selectedBmp.isRecycled()) {
+            selectedBmp = null;
+        }
+        if (null != unselectedBmp && !unselectedBmp.isRecycled()) {
+            unselectedBmp = null;
+        }
+        super.onDetachedFromWindow();
     }
 }
