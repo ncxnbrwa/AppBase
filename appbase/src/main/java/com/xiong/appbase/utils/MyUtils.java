@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -28,6 +29,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -392,6 +394,20 @@ public class MyUtils {
         return flag;
     }
 
+    private int getNameLength(String name) {
+        int charLength = 0;
+        String chinese = "[\u4e00-\u9fa5]";
+        for (int i = 0; i < name.length(); i++) {
+            String tmp = name.substring(i, i + 1);
+            if (tmp.matches(chinese)) {
+                charLength += 2;
+            } else {
+                charLength++;
+            }
+        }
+        return charLength;
+    }
+
     //获取当前版本号
     public static String getVersionName() {
         String versionName = "";
@@ -447,5 +463,40 @@ public class MyUtils {
             }
         }
         return sb.toString();
+    }
+
+    //判断是不是图片文件
+    public static boolean isImageFile(String pathName) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(pathName, options);
+        return options.outWidth != -1;
+    }
+
+    /**
+     * 监听键盘弹出,使布局上移,scrollToView为需要展示的最下面的View,root一般为根布局
+     */
+    private void addKeyboardListener(final View root, final View scrollToView) {
+        root.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect rect = new Rect();
+                //测量可见区域,并把宽高存入Rect
+                root.getWindowVisibleDisplayFrame(rect);
+                //不可见区域的高度,即键盘遮挡高度
+                int rootInvisibleHeight = root.getRootView().getHeight() - rect.bottom;
+                if (rootInvisibleHeight > 100) {
+                    int[] location = new int[2];
+                    //获取View坐标,第一个为x值,第二个为Y值
+                    scrollToView.getLocationInWindow(location);
+                    //计算出指定View到可视区域底部的距离
+                    int scrollHeight = location[1] + scrollToView.getHeight() - rect.bottom;
+                    scrollHeight = scrollHeight < 0 ? 0 : scrollHeight;
+                    root.scrollTo(0, scrollHeight);
+                } else {
+                    root.scrollTo(0, 0);
+                }
+            }
+        });
     }
 }
