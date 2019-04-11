@@ -64,13 +64,13 @@ public class ELS {
         return mSharePrefer.getBoolean(key, false);
     }
 
-    public void saveCookieSet(HashSet<String> set) {
-        mEditor.putStringSet(COOKIES_SET, set);
+    public void saveCookieSet(String key, HashSet<String> set) {
+        mEditor.putStringSet(key, set);
         mEditor.apply();
     }
 
-    public Set<String> getCookieSet() {
-        return mSharePrefer.getStringSet(COOKIES_SET, new HashSet<String>());
+    public Set<String> getCookieSet(String key) {
+        return mSharePrefer.getStringSet(key, new HashSet<String>());
     }
 
     public void saveStringData(String key, String value) {

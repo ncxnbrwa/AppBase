@@ -20,13 +20,14 @@ public class CookiesReceiverInterceptor implements Interceptor {
         Response originalResponse = chain.proceed(chain.request());
         ELS els = ELS.getInstance();
         if (!originalResponse.headers("Set-Cookie").isEmpty()) {
-            HashSet<String> cookieSet = new HashSet<>();
-            for (String cookie : originalResponse.headers("Set-Cookie")) {
-                cookieSet.add(cookie);
-            }
-            els.saveCookieSet(cookieSet);
+//            HashSet<String> cookieSet = new HashSet<>();
+//            for (String cookie : originalResponse.headers("Set-Cookie")) {
+//                cookieSet.add(cookie);
+//            }
+            HashSet<String> cookieSet = new HashSet<>(originalResponse.headers("Set-Cookie"));
+            els.saveCookieSet(ELS.COOKIES_SET, cookieSet);
         }
-        DLog.w("Request", "得到的Cookie:" + els.getCookieSet().toString());
+        DLog.w("Request", "得到的Cookie:" + els.getCookieSet(ELS.COOKIES_SET).toString());
         return originalResponse;
     }
 }

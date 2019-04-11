@@ -19,7 +19,7 @@ public class CookiesAddInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request.Builder builder = chain.request().newBuilder();
-        HashSet<String> cookieSet = (HashSet<String>) ELS.getInstance().getCookieSet();
+        HashSet<String> cookieSet = (HashSet<String>) ELS.getInstance().getCookieSet(ELS.COOKIES_SET);
         for (String cookie : cookieSet) {
             builder.addHeader("Cookie", cookie);
             DLog.w("OkHttp", "添加Cookie:" + cookie);
