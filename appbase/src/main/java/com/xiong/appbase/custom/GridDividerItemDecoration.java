@@ -9,6 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
+import com.xiong.appbase.utils.MyUtils;
+import com.xiong.appbase.utils.ScreenUtils;
+
 /**
  * Created by xiong on 2018/4/26.
  * GridLayoutManager万能分割线,瀑布流也可以用
@@ -19,7 +22,7 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
     private int mDividerWidth;
 
     public GridDividerItemDecoration(int height, @ColorInt int color) {
-        mDividerWidth = height;
+        mDividerWidth = ScreenUtils.dp2px(height);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(color);
         mPaint.setStyle(Paint.Style.FILL);
