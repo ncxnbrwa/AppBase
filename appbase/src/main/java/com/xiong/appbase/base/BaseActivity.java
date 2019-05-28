@@ -93,17 +93,17 @@ public abstract class BaseActivity extends SupportActivity {
     public void showLoadingDialog() {
         if (isFinishing()) return;
         if (mProgressDialog == null) {
-            mProgressDialog = new Indicator(this);
+            mProgressDialog = new Indicator();
         }
-        if (!mProgressDialog.isShowing()) {
-            mProgressDialog.show();
+        if (!mProgressDialog.isVisible()) {
+            mProgressDialog.show(getSupportFragmentManager(), Indicator.INDICATOR_TAG);
         }
     }
 
     public void dismissLoadingDialog() {
         if (isFinishing()) return;
         if (mProgressDialog != null) {
-            if (mProgressDialog.isShowing()) {
+            if (mProgressDialog.isVisible()) {
                 mProgressDialog.dismiss();
             }
         }

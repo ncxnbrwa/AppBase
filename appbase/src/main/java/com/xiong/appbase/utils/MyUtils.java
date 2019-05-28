@@ -79,11 +79,10 @@ public class MyUtils {
     public static void intentToWechat(BaseActivity activity) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_MAIN);
-        intent.setComponent(new ComponentName(Config.WEXIN_PACKAGE,
-                Config.WEXIN_HOME_CLASS));
+        intent.setComponent(new ComponentName(Config.WEXIN_PACKAGE, Config.WEXIN_HOME_CLASS));
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        activity.startActivityForResult(intent, 0);
+        activity.startActivity(intent);
     }
 
     //格式化为百分数
@@ -99,7 +98,7 @@ public class MyUtils {
     public static TextView createRelatedItem(Context ctx, String text, View.OnClickListener clickListener) {
         TextView relatedItem = new TextView(ctx);
         relatedItem.setBackgroundResource(R.drawable.float_item_bg);
-        relatedItem.setTextSize(13f);
+        relatedItem.setTextSize(12f);
         relatedItem.setText(text);
         relatedItem.setTextColor(ContextCompat.getColor(ctx, R.color.text_lable_jb));
         relatedItem.setOnClickListener(clickListener);
@@ -498,5 +497,19 @@ public class MyUtils {
                 }
             }
         });
+    }
+
+    // 判断是否有SIM卡
+    public static boolean hasSimCard(Context context) {
+        TelephonyManager telMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        int simState = 0;
+        if (telMgr != null) {
+            simState = telMgr.getSimState();
+        }
+        boolean result = true;
+        if (simState == TelephonyManager.SIM_STATE_ABSENT || simState == TelephonyManager.SIM_STATE_UNKNOWN) {
+            result = false;
+        }
+        return result;
     }
 }
