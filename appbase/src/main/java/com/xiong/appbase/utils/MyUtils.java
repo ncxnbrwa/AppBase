@@ -512,4 +512,17 @@ public class MyUtils {
         }
         return result;
     }
+
+    public static boolean isNetWorkConnected(Context mContext) {
+        if (mContext != null) {
+            ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (cm != null) {
+                NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+                if (networkInfo != null) {
+                    return networkInfo.isAvailable();
+                }
+            }
+        }
+        return false;
+    }
 }

@@ -25,7 +25,5 @@ public class Config {
     public static final String JD_WEB = "https://www.jd.com/";
     public static final String TMALL_WEB = "https://www.tmall.com/";
 
-    //Bugly注册ID
-    public static final String BUGLY_ID = "854ad346c3";
 
 }

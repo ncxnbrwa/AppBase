@@ -3,6 +3,8 @@ package com.xiong.appbase.custom;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
@@ -48,9 +50,8 @@ public class TimeButton extends Button implements View.OnClickListener {
         setOnClickListener(this);
     }
 
-    @SuppressLint("HandlerLeak")
-    Handler han = new Handler() {
-        public void handleMessage(android.os.Message msg) {
+    Handler han = new Handler(Looper.getMainLooper()) {
+        public void handleMessage(Message msg) {
             TimeButton.this.setText("重发(" + time / 1000 + ")");
             time -= 1000;
             if (time < 0) {
@@ -65,8 +66,6 @@ public class TimeButton extends Button implements View.OnClickListener {
                 clearTimer();
             }
         }
-
-        ;
     };
 
     private void initTimer() {

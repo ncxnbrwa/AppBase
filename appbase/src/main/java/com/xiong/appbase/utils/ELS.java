@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class ELS {
     private static final String ELS = "EL_SharePrefence";
-    private static com.xiong.appbase.utils.ELS mPref = null;
+    private static ELS mPref = null;
     private SharedPreferences mSharePrefer = null;
     private Editor mEditor = null;
 
@@ -105,7 +105,7 @@ public class ELS {
     }
 
 
-    public static synchronized com.xiong.appbase.utils.ELS getInstance() {
+    public static synchronized ELS getInstance() {
         if (mPref == null) {
             mPref = new ELS(BaseApplication.getAppContext());
         }

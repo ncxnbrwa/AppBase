@@ -76,8 +76,6 @@ dependencies {
     implementation "com.android.support:multidex:1.0.2"
     api "io.reactivex.rxjava2:rxjava:2.0.6"
     api "io.reactivex.rxjava2:rxandroid:2.0.1"
-    api 'com.tencent.bugly:crashreport:2.6.6'
-    api 'com.tencent.bugly:nativecrashreport:3.3.1'
     api 'org.litepal.android:core:1.6.1'
 //    compile ('com.alibaba.android:vlayout:1.2.8@aar') {
 //        transitive = true
