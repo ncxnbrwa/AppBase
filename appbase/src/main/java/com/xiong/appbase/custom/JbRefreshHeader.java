@@ -15,14 +15,14 @@ import com.scwang.smartrefresh.layout.api.RefreshKernel;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
-import com.scwang.smartrefresh.layout.util.DensityUtil;
 import com.xiong.appbase.R;
+import com.xiong.appbase.utils.ScreenUtils;
 
 import pl.droidsonroids.gif.GifImageView;
 
 /**
  * Created by xiong on 2018/4/24.
- * 金榜下拉刷新头
+ * 下拉刷新头
  */
 
 public class JbRefreshHeader extends LinearLayout implements RefreshHeader {
@@ -56,15 +56,11 @@ public class JbRefreshHeader extends LinearLayout implements RefreshHeader {
         mHeaderText.setTextColor(Color.parseColor("#999999"));
         gif = new GifImageView(context);
         gif.setImageResource(R.drawable.crown);
-        addView(gif, DensityUtil.dp2px(20), DensityUtil.dp2px(20));
+        addView(gif, ScreenUtils.dp2px(20), ScreenUtils.dp2px(20));
         addView(mHeaderText, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        setMinimumHeight(DensityUtil.dp2px(60));
+        setMinimumHeight(ScreenUtils.dp2px(60));
     }
 
-
-    @Override
-    public void onReleasing(float percent, int offset, int headerHeight, int extendHeight) {
-    }
 
     @Override
     public void onReleased(RefreshLayout refreshLayout, int height, int extendHeight) {
@@ -92,6 +88,11 @@ public class JbRefreshHeader extends LinearLayout implements RefreshHeader {
 
     @Override
     public void onPulling(float percent, int offset, int height, int extendHeight) {
+
+    }
+
+    @Override
+    public void onReleasing(float percent, int offset, int height, int extendHeight) {
 
     }
 

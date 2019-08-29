@@ -15,14 +15,14 @@ import com.scwang.smartrefresh.layout.api.RefreshKernel;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
-import com.scwang.smartrefresh.layout.util.DensityUtil;
 import com.xiong.appbase.R;
+import com.xiong.appbase.utils.ScreenUtils;
 
 import pl.droidsonroids.gif.GifImageView;
 
 /**
  * Created by xiong on 2018/4/24.
- * 金榜上拉加载footer
+ * 上拉加载footer
  */
 
 public class JbREfreshFooter extends LinearLayout implements RefreshFooter {
@@ -53,9 +53,9 @@ public class JbREfreshFooter extends LinearLayout implements RefreshFooter {
         mFooterText.setTextColor(Color.parseColor("#999999"));
         gif = new GifImageView(context);
         gif.setImageResource(R.drawable.crown);
-        addView(gif, DensityUtil.dp2px(20), DensityUtil.dp2px(20));
+        addView(gif, ScreenUtils.dp2px(20), ScreenUtils.dp2px(20));
         addView(mFooterText, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        setMinimumHeight(DensityUtil.dp2px(60));
+        setMinimumHeight(ScreenUtils.dp2px(60));
     }
 
     @Override

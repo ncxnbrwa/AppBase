@@ -10,6 +10,7 @@ import com.xiong.appbase.R;
 
 /**
  * Created by xiong on 2018/6/22.
+ * 可控制比例的ImageView
  */
 
 public class RatioImageView extends ImageView {

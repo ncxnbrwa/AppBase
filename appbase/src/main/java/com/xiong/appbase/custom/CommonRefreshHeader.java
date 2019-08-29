@@ -18,7 +18,7 @@ import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.internal.ProgressDrawable;
 import com.scwang.smartrefresh.layout.internal.pathview.PathsView;
-import com.scwang.smartrefresh.layout.util.DensityUtil;
+import com.xiong.appbase.utils.ScreenUtils;
 
 /**
  * Created by xiong on 2018/4/18.
@@ -59,25 +59,16 @@ public class CommonRefreshHeader extends LinearLayout implements RefreshHeader {
         mProgressView.setImageDrawable(mProgressDrawable);
         mArrowView.parserColors(Color.parseColor("#ef5350"));
         mArrowView.parserPaths("M20,12l-1.41,-1.41L13,16.17V4h-2v12.17l-5.58,-5.59L4,12l8,8 8,-8z");
-        addView(mProgressView, DensityUtil.dp2px(20), DensityUtil.dp2px(20));
-        addView(mArrowView, DensityUtil.dp2px(20), DensityUtil.dp2px(20));
-        addView(new View(context), DensityUtil.dp2px(20), DensityUtil.dp2px(20));
+        addView(mProgressView, ScreenUtils.dp2px(20),ScreenUtils.dp2px(20));
+        addView(mArrowView, ScreenUtils.dp2px(20), ScreenUtils.dp2px(20));
+        addView(new View(context), ScreenUtils.dp2px(20), ScreenUtils.dp2px(20));
         addView(mHeaderText, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        setMinimumHeight(DensityUtil.dp2px(60));
-    }
-
-    @Override
-    public void onPulling(float percent, int offset, int height, int extendHeight) {
-
+        setMinimumHeight(ScreenUtils.dp2px(60));
     }
 
     @Override
     public void onReleased(RefreshLayout refreshLayout, int height, int extendHeight) {
 
-    }
-
-    @Override
-    public void onReleasing(float percent, int offset, int headerHeight, int extendHeight) {
     }
 
     @NonNull
@@ -97,6 +88,16 @@ public class CommonRefreshHeader extends LinearLayout implements RefreshHeader {
 
     @Override
     public void onInitialized(RefreshKernel kernel, int height, int extendHeight) {
+    }
+
+    @Override
+    public void onPulling(float percent, int offset, int height, int extendHeight) {
+
+    }
+
+    @Override
+    public void onReleasing(float percent, int offset, int height, int extendHeight) {
+
     }
 
     @Override

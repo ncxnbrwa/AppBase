@@ -6,7 +6,7 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.xiong.appbase.R
-import com.xiong.appbase.custom.GridDividerItemDecoration
+import com.xiong.appbase.custom.CommonDividerItemDecoration
 
 /**
  * Created by xiong on 2018/4/25.
@@ -21,5 +21,5 @@ fun RecyclerView.addDivider(ctx: Context, drawable: Int, orientation: Int = Line
 
 //GridLayoutManager添加分割线
 fun RecyclerView.addGridDivider(ctx: Context, height: Int = 16, color: Int = R.color.white) {
-    addItemDecoration(GridDividerItemDecoration(height, ContextCompat.getColor(ctx, color)))
+    addItemDecoration(CommonDividerItemDecoration(height, ContextCompat.getColor(ctx, color)))
 }
