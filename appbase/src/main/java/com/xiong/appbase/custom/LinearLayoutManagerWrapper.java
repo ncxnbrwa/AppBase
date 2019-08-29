@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 
 /**
  * Created by xiong on 2017/12/14.
+ * 有时候RecyclerView使用LinearLayoutManager会有奇怪的异常,这个用来取巧减少异常
  */
 
 public class LinearLayoutManagerWrapper extends LinearLayoutManager {

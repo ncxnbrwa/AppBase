@@ -42,7 +42,6 @@ import retrofit2.Response;
 //public abstract class BaseActivity extends AppCompatActivity {
 public abstract class BaseActivity extends SupportActivity {
     public BaseApplication mApp = null;
-    //    Unbinder unbinder;
     static Toast mToast;
     //    QMUITipDialog loadingDialog;
     Indicator mProgressDialog;
@@ -58,7 +57,6 @@ public abstract class BaseActivity extends SupportActivity {
         mApp = BaseApplication.getInstance();
         //加activity
         mApp.pushActivity(this);
-//        unbinder = ButterKnife.bind(this);
 
 //        if (loadingDialog == null)
 //            loadingDialog = ComponentsUtils.getLoadingDialog(this, "加载中...");
@@ -139,7 +137,6 @@ public abstract class BaseActivity extends SupportActivity {
         //activity销毁时弹出栈
         mApp.popActivity(this);
         DLog.d(".mActivityStack.size", "" + mApp.mActivityStack.size());
-//        unbinder.unbind();
         super.onDestroy();
     }
 

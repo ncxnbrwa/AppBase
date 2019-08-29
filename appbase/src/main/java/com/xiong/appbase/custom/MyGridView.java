@@ -7,6 +7,10 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.GridView;
 
+
+/**
+ * 防止和ScrollView滑动冲突的GridView
+ */
 public class MyGridView extends GridView {
     public MyGridView(Context context) {
         super(context);

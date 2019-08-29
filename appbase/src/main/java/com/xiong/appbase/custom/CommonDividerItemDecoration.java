@@ -13,7 +13,7 @@ import com.xiong.appbase.utils.ScreenUtils;
 
 /**
  * Created by xiong on 2018/4/26.
- * GridLayoutManager万能分割线,瀑布流也可以用
+ * GridLayoutManager万能分割线,瀑布流也可以用,稍微有点问题
  */
 
 public class CommonDividerItemDecoration extends RecyclerView.ItemDecoration {

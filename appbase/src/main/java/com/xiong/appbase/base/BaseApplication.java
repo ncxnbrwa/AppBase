@@ -69,7 +69,6 @@ public class BaseApplication extends MultiDexApplication {
         super.onCreate();
         mAppInstance = this;
         mContext = getApplicationContext();
-//        Utils.init(this);
         PlatformConfig.setWeixin("wxbeba563b69131e25", "f2a2f876b3eaee41148232fe9e51387b");
         PlatformConfig.setQQZone("1106685804", "otZiNgl4wbjCWsmB");
 //        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com");

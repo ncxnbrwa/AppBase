@@ -7,6 +7,9 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ListView;
 
+/**
+ * 防止和ScrollView滑动冲突的ListView
+ */
 public class MyListView extends ListView {
     public MyListView(Context context) {
         super(context);

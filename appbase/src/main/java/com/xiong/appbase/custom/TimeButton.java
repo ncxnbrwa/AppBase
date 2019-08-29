@@ -19,7 +19,7 @@ import java.util.TimerTask;
 
 /**
  * Created by xiong on 2018/5/9.
- * 倒计时Button
+ * 倒计时Button,用于手法验证码,Activity销毁也能保证倒计时不中断
  */
 
 public class TimeButton extends Button implements View.OnClickListener {
