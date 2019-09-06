@@ -5,13 +5,12 @@ import android.util.Log;
 import com.xiong.appbase.BuildConfig;
 
 /**
- * 日志信息输出�?
+ * 日志信息输出类
  * <p>该类可自动或手动配置不同等级日志在发布模式下是否允许输出�?
  * 并使用android.util.Log输出日志内容</p>
  *
  */
 public final class DLog {
-//	private static boolean mbDebugMode = true;
 	private static boolean mbDebugMode = BuildConfig.mbDebugMode;
 	private static boolean mbLogDInRelease = false;
 	private static boolean mbLogVInRelease = false;

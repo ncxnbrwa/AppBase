@@ -1,4 +1,4 @@
-package com.iimedia.appbase.view.webview
+package com.xiong.appbase.custom.webview
 
 import android.annotation.SuppressLint
 import android.content.Context

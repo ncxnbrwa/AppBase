@@ -1,4 +1,4 @@
-package com.iimedia.appbase.view.webview
+package com.xiong.appbase.custom.webview
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -15,7 +15,7 @@ import android.webkit.*
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import com.iimedia.appbase.view.webview.interfaces.JSInterface
+import com.xiong.appbase.custom.webview.interfaces.JSInterface
 import com.xiong.appbase.R
 import com.xiong.appbase.utils.DLog
 

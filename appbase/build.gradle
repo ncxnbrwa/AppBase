@@ -32,7 +32,7 @@ android {
     //用于统一维度,避免AS3.0的编译错误
     flavorDimensions "tier"
     productFlavors {
-        iimedia {
+        normal {
             dimension 'tier'
         }
     }

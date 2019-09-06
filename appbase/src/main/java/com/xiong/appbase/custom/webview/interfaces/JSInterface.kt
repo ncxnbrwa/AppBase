@@ -1,4 +1,4 @@
-package com.iimedia.appbase.view.webview.interfaces
+package com.xiong.appbase.custom.webview.interfaces
 
 import android.webkit.JavascriptInterface
 

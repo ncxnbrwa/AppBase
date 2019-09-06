@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.RecyclerView;
 import android.telecom.Call;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +83,7 @@ public abstract class BaseActivity extends SupportActivity {
     }
 
     //页面跳转的方法
-    public void toActivity(Class<?> cls, Bundle bundle) {
+    protected void toActivity(Class<?> cls, Bundle bundle) {
         Intent intent = new Intent(this, cls);
         if (bundle != null) {
             intent.putExtras(bundle);
@@ -90,7 +91,7 @@ public abstract class BaseActivity extends SupportActivity {
         this.startActivity(intent);
     }
 
-    public void showToast(String msg) {
+    protected void showToast(String msg) {
         if (mToast != null) {
             mToast.cancel();
         }
@@ -98,7 +99,7 @@ public abstract class BaseActivity extends SupportActivity {
         mToast.show();
     }
 
-    public void showLoadingDialog() {
+    protected void showLoadingDialog() {
         if (isFinishing()) return;
         if (mProgressDialog == null) {
             mProgressDialog = new Indicator();
@@ -108,7 +109,7 @@ public abstract class BaseActivity extends SupportActivity {
         }
     }
 
-    public void dismissLoadingDialog() {
+    protected void dismissLoadingDialog() {
         if (isFinishing()) return;
         if (mProgressDialog != null) {
             if (mProgressDialog.isVisible()) {
@@ -144,7 +145,7 @@ public abstract class BaseActivity extends SupportActivity {
     private int REQUEST_CODE_PERMISSION = 0x00099;
 
     //请求权限,外部调用
-    public void requestPermission(String[] permissions, int requestCode) {
+    protected void requestPermission(String[] permissions, int requestCode) {
         this.REQUEST_CODE_PERMISSION = requestCode;
         if (checkPermissions(permissions)) {
             permissionSuccess(REQUEST_CODE_PERMISSION);

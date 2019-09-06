@@ -2,8 +2,8 @@ ext {
     min_version = 16
     target_version = 27
     build_version = '27.0.3'
-    code_version = 10
-    code_version_name = '1.1.0'
+    code_version = 11
+    code_version_name = '1.1.1'
 
     support_version = '27.1.1'
 
