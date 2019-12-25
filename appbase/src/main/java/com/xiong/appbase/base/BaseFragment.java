@@ -26,7 +26,6 @@ public abstract class BaseFragment extends SupportFragment {
     public BaseApplication mElfApp = null;
     private boolean isViewPrepared; // 标识fragment视图已经初始化完毕
     private boolean hasFetchData; // 标识已经触发过懒加载数据
-    //    Unbinder unbinder;
     static Toast mToast;
     public Activity mActivity;
     protected View mStatusBarView;
@@ -48,7 +47,6 @@ public abstract class BaseFragment extends SupportFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = (ViewGroup) inflater.inflate(getLayoutId(), container, false);
-//        unbinder = ButterKnife.bind(this, view);
         init();
 //        ViewGroup decorContentView = (ViewGroup) getBaseActivity().findViewById(android.R.id.content);
 //        rootView = (ViewGroup) decorContentView.getChildAt(0);
@@ -96,27 +94,27 @@ public abstract class BaseFragment extends SupportFragment {
     }
 
 
-    public void showToast(String msg) {
+    protected void showToast(String msg) {
         if (mToast != null)
             mToast.cancel();
         mToast = Toast.makeText(BaseApplication.getAppContext(), msg, Toast.LENGTH_SHORT);
         mToast.show();
     }
 
-    public void showLoadingDialog() {
+    protected void showLoadingDialog() {
         if (getBaseActivity() != null) {
             getBaseActivity().showLoadingDialog();
         }
     }
 
-    public void dismissLoadingDialog() {
+    protected void dismissLoadingDialog() {
         if (getBaseActivity() != null) {
             getBaseActivity().dismissLoadingDialog();
         }
     }
 
     //获取当前依赖的Activity
-    public BaseActivity getBaseActivity() {
+    protected BaseActivity getBaseActivity() {
         return (BaseActivity) getActivity();
     }
 
@@ -186,7 +184,6 @@ public abstract class BaseFragment extends SupportFragment {
         isViewPrepared = false;
         hasFetchData = false;
         DLog.d(getClass().getSimpleName(), "onDestroyView");
-//        unbinder.unbind();
         super.onDestroyView();
     }
 

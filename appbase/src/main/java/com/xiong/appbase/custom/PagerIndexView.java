@@ -114,10 +114,11 @@ public class PagerIndexView extends View {
         int y = (getHeight() - iconHeight) / 2;
         for (int i = 0; i < mTotalPage; i++) {
             //绘制图片区域
-            rect.left = x;
-            rect.top = y;
-            rect.right = x + iconWidth;
-            rect.bottom = y + iconHeight;
+//            rect.left = x;
+//            rect.top = y;
+//            rect.right = x + iconWidth;
+//            rect.bottom = y + iconHeight;
+            rect.set(x, y, x + iconWidth, y + iconHeight);
             //当前选中状态的点
             if (i == mCurrentPage) {
                 canvas.drawBitmap(selectedBmp, null, rect, mPaint);

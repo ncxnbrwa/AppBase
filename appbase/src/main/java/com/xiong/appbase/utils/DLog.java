@@ -6,8 +6,8 @@ import com.xiong.appbase.BuildConfig;
 
 /**
  * 日志信息输出类
- * <p>该类可自动或手动配置不同等级日志在发布模式下是否允许输出�?
- * 并使用android.util.Log输出日志内容</p>
+ * 该类可自动或手动配置不同等级日志在发布模式下是否允许输出
+ * 并使用android.util.Log输出日志内容
  *
  */
 public final class DLog {
