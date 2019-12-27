@@ -158,8 +158,8 @@ public class TimeTypeUtils {
         calendar.set(Calendar.MINUTE, 0);
         return getTimeFormat(calendar.getTimeInMillis());
     }
-	
-	//生成指定时间的时间戳
+
+    //生成指定时间的时间戳
     public static long releaseTime2Stamp(String releaseTime) throws ParseException {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = df.parse(releaseTime);
@@ -339,6 +339,22 @@ public class TimeTypeUtils {
         endCalendar.set(Calendar.SECOND, 0);
         endCalendar.set(Calendar.MILLISECOND, 0);
         return (int) ((endCalendar.getTime().getTime() - startCalendar.getTime().getTime()) / (1000 * 60 * 60 * 24));
-
     }
+
+    //时间格式化视频播放时间,把毫秒值转换成00:00:00
+    private String formatSeconds(long millisecond) {
+        int second = (int) (millisecond / 1000);
+        int hh = second / 3600;
+        int mm = second % 3600 / 60;
+        int ss = second % 60;
+        String str = "";
+        if (hh != 0) {
+            //02d代表至少两位的十进制整数,5会变成05
+            str = String.format("%02d:%02d:%02d", hh, mm, ss);
+        } else {
+            str = String.format("%02d:%02d", mm, ss);
+        }
+        return str;
+    }
+
 }
