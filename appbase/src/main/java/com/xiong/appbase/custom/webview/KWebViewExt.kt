@@ -116,16 +116,14 @@ class KWebViewExt @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
             override fun onJsAlert(view: WebView?, url: String?, message: String?, result: JsResult?): Boolean {
                 val alertDialog = AlertDialog.Builder(context).setMessage(message)
-                        .setPositiveButton("确定",
-                                { _, _ -> result?.confirm() }).show()
+                        .setPositiveButton("确定") { _, _ -> result?.confirm() }.show()
                 alertDialog.setCanceledOnTouchOutside(false)
-                alertDialog.setOnKeyListener(
-                        { _, keyCode, _ ->
-                            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                                result?.confirm()
-                            }
-                            false
-                        })
+                alertDialog.setOnKeyListener { _, keyCode, _ ->
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        result?.confirm()
+                    }
+                    false
+                }
                 return true
             }
 
@@ -148,17 +146,17 @@ class KWebViewExt @JvmOverloads constructor(context: Context, attrs: AttributeSe
                 editText.setText(defaultValue)
                 val alertDialog = AlertDialog.Builder(context).setTitle(message)
                         .setView(editText)
-                        .setPositiveButton("确定",
-                                { _, _ -> result?.confirm(editText.getText().toString()) })
-                        .setNegativeButton("取消",
-                                { _, _ -> result?.cancel() }).show()
+                        .setPositiveButton("确定"
+                        ) { _, _ -> result?.confirm(editText.getText().toString()) }
+                        .setNegativeButton("取消"
+                        ) { _, _ -> result?.cancel() }.show()
                 alertDialog.setCanceledOnTouchOutside(false)
-                alertDialog.setOnKeyListener({ _, keyCode, _ ->
+                alertDialog.setOnKeyListener { _, keyCode, _ ->
                     if (keyCode == KeyEvent.KEYCODE_BACK) {
                         result?.cancel()
                     }
                     false
-                })
+                }
                 return true
             }
 

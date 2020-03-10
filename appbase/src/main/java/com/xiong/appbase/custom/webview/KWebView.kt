@@ -43,8 +43,6 @@ class KWebView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         settings.allowContentAccess = true
         settings.allowFileAccess = true
         settings.databaseEnabled = true
-        //缩放至屏幕的大小
-        settings.loadWithOverviewMode = true
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
