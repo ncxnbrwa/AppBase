@@ -407,7 +407,7 @@ public class MyUtils {
         return charLength;
     }
 
-    //获取当前版本号
+    //获取当前版本名
     public static String getVersionName() {
         String versionName = "";
         Context context = BaseApplication.getAppContext();
@@ -415,6 +415,20 @@ public class MyUtils {
         try {
             PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
             versionName = info.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionName;
+    }
+
+    //获取当前版本号
+    public static int getVersionCode() {
+        int versionName = 0;
+        Context context = BaseApplication.getAppContext();
+        PackageManager manager = context.getPackageManager();
+        try {
+            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+            versionName = info.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
