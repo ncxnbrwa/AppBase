@@ -30,6 +30,10 @@ public class ELS {
     public static final String THIRD_PARTY_USER_ID = "third_party_user_id";
     public static final String USER_ID = "user_id";
     public static final String HAS_INIT_DATABASE = "has_init_database";
+    //日志文件名称
+    public static final String LOG_FILE_NAME = "log_file_name";
+    //上一次使用应用的日志文件上传开关
+    public static final String LAST_LOG_SWITCH = "last_log_switch";
 
     //清除所用户相关的信息
     public void clearUserInfo() {
@@ -104,11 +108,12 @@ public class ELS {
         return mSharePrefer.getFloat(key, 0);
     }
 
-
-    public static synchronized ELS getInstance() {
-        if (mPref == null) {
-            mPref = new ELS(BaseApplication.getAppContext());
-        }
+    public static ELS getInstance() {
+        if (mPref == null)
+            synchronized (ELS.class) {
+                if (mPref == null)
+                    mPref = new ELS(BaseApplication.getAppContext());
+            }
         return mPref;
     }
 
