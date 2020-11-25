@@ -41,6 +41,11 @@ android {
             dirs 'libs'
         }
     }
+//    android.applicationVariants.all { variant ->
+//        variant.outputs.all {
+//            outputFileName = "${applicationId}_${productFlavors[0].name}_${buildType.name}_${releaseTime()}_${versionName}.apk"
+//        }
+//    }
 }
 
 def releaseTime() {
